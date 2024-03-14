@@ -7,8 +7,13 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useSelector } from "react-redux";
+import { Details } from "../../components/details/details";
+import { getUser } from "../../redux/details";
 
 function HomeDetails() {
+  const user = useSelector(getUser);
+  console.log(user);
   return (
     <IonPage>
       <IonHeader>
@@ -16,10 +21,12 @@ function HomeDetails() {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/app/home"></IonBackButton>
           </IonButtons>
-          <IonTitle>Home Details</IonTitle>
+          <IonTitle>User Details</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent class="ion-padding"></IonContent>
+      <IonContent color="secondary">
+        <Details user={user} />
+      </IonContent>
     </IonPage>
   );
 }

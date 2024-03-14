@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function Button({ text, onClick }) {
   return (
     <IonButton className={classes.button} onClick={onClick}>
-      <p>{text}</p>
+      <p className="black">{text}</p>
     </IonButton>
   );
 }

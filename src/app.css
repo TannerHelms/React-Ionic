@@ -16,6 +16,23 @@
   .w-100 {
     width: 100%;
   }
+
+  .spin {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
   
   @keyframes logo-spin {
     from {
@@ -290,4 +307,10 @@
   .black {
     color: black;
   }
-  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .hover-primary:hover {
+    background-color: #CCD9BF;
+  }

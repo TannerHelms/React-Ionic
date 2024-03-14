@@ -6,13 +6,17 @@ import {
   IonTabButton,
   IonTabs,
 } from "@ionic/react";
-import { airplane, home, person } from "ionicons/icons";
+import { airplane, home, person, chatbox } from "ionicons/icons";
 import { Redirect, Route } from "react-router-dom";
-import HomeDetails from "./home/home_details";
+import HomeDetails from "./user_details/user_details";
 import Messages from "./messages/messages";
 import Home from "./home/home";
+import useInit from "../hooks/useInit";
+import { setDetailUser } from "../redux/details";
+import Profile from "./profile/profile";
 
 function Tabs() {
+  const { user, dispatch, navigate } = useInit(true);
   return (
     <IonTabs>
       <IonRouterOutlet>
@@ -21,10 +25,10 @@ function Tabs() {
           <Redirect to="/app/home" />
         </Route>
         <Route exact path="/app/home" component={Home} />
-        <Route exact path="/app/home/details" component={HomeDetails} />
+        <Route path="/app/home/details" component={HomeDetails} />
         <Route exact path="/app/messages" component={Messages} />
+        <Route exact path="/app/profile" component={Profile} />
       </IonRouterOutlet>
-
       <IonTabBar slot="bottom">
         {/* Home Icon */}
         <IonTabButton tab="home" href="/app/home">
@@ -33,11 +37,11 @@ function Tabs() {
         </IonTabButton>
         {/* Messages Icon */}
         <IonTabButton tab="messages" href="/app/messages">
-          <IonIcon icon={airplane} />
+          <IonIcon icon={chatbox} />
           <IonLabel>Messages</IonLabel>
         </IonTabButton>
         {/* Profile Icon */}
-        <IonTabButton tab="profile" href="../">
+        <IonTabButton tab="profile" href="/app/profile">
           <IonIcon icon={person} />
           <IonLabel>Profile</IonLabel>
         </IonTabButton>

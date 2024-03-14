@@ -6,34 +6,18 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useEffect, useState } from "react";
-import Avatar from "../../components/avatar/avatar";
+import { useEffect } from "react";
+import { FaSpinner } from "react-icons/fa";
 import Button from "../../components/button/button";
-import useCollection from "../../hooks/useCollection";
+import { UserPhotos } from "../../components/user_photos/user_photos";
+import useDistanceBetween from "../../hooks/useDistanceBetween";
 import useInit from "../../hooks/useInit";
+import { setDetailUser } from "../../redux/details";
 import classes from "./home.module.css";
-import { getDistance } from "../../hooks/getDistance";
 
 function Home() {
-  const { user, token, navigate } = useInit(true);
-  const { data: users } = useCollection("users");
-  const [distance, setDistances] = useState([]);
-
-  useEffect(() => {
-    if (users && user) {
-      const get = async () => {
-        users.forEach(async (u) => {
-          const dist = await getDistance(
-            user.latitude,
-            user.longitude,
-            u.latitude,
-            u.longitude
-          );
-        });
-      };
-      get();
-    }
-  }, [user, users]);
+  const { user, token, navigate, dispatch } = useInit(true);
+  const { userDistances } = useDistanceBetween(user);
 
   useEffect(() => {
     if (!user) {
@@ -54,34 +38,32 @@ function Home() {
       {/* Content */}
       <IonContent fullscreen>
         <div className="flex col centery">
-          {users?.map((user, idx) => {
+          {userDistances?.map((data, idx) => {
+            const { user, distance } = data;
             return (
               <IonCard key={idx} className={classes.card}>
-                {/* Photos */}
-                <div className="relative">
-                  <img
-                    className={classes.cover}
-                    src={user.photo_background}
-                    alt=""
-                  />
-                  <div className={classes.avatar}>
-                    <Avatar src={user.photo_url} alt="photo" size="140px" />
-                  </div>
-                </div>
-                <div style={{ height: "30px" }}></div>
+                <UserPhotos user={user} />
                 {/* User Info */}
                 <div className="flex row between w-100 black">
                   <p>{user.display_name}</p>
-                  <p>0ft</p>
+                  <p>{distance}</p>
                 </div>
                 <div className="flex row between w-100 black">
                   <p>{user.location}</p>
                   <p>{user.is_host ? "Host" : "Traveler"}</p>
                 </div>
-                <Button text="View Profile" />
+                <Button
+                  text="View Profile"
+                  onClick={() => {
+                    delete user.created_time;
+                    dispatch(setDetailUser({ user }));
+                    navigate.push("/app/home/details");
+                  }}
+                />
               </IonCard>
             );
           })}
+          {!userDistances && <FaSpinner className="spin" size={"50px"} />}
         </div>
       </IonContent>
       {/* End Content */}
