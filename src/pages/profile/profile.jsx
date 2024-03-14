@@ -9,15 +9,14 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { FaEnvelope, FaPhone, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaCamera, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Details } from "../../components/details/details";
-import useInit from "../../hooks/useInit";
 import SettingTile from "../../components/setting_tile/setting_tile";
-import { useState } from "react";
+import useInit from "../../hooks/useInit";
 
 function Profile() {
   const { user, navigate } = useInit(true);
-  
+
   return (
     <>
       {/* This is the Menu Settings */}
@@ -37,6 +36,11 @@ function Profile() {
                 onClick={() => {
                   navigate.push("/app/editProfile");
                 }}
+              />
+              <SettingTile
+                icon={<FaCamera size="32px" />}
+                text="Edit Photos"
+                onClick={() => navigate.push("/app/editPhotos")}
               />
               <SettingTile
                 icon={<FaSignOutAlt size="32px" />}

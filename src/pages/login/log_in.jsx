@@ -11,6 +11,7 @@ import { setCredentials } from "../../redux/auth";
 
 function LogIn() {
   const { navigate, dispatch } = useInit({ auth: false });
+  const [error, setError] = useState(null);
 
   const [user, setUser] = useState({
     email: "",
@@ -39,7 +40,7 @@ function LogIn() {
         }
       })
       .catch((error) => {
-        console.log(error.message);
+        setError("Invalid Credentials");
       });
   };
 
@@ -55,6 +56,7 @@ function LogIn() {
             size="120px"
           />
           <h1>Log In</h1>
+          {error && <p className="red">{error}</p>}
           <Input
             name="email"
             type="email"
