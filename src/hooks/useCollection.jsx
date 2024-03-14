@@ -2,24 +2,22 @@ import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase-config";
 
-function useUsers() {
-  const [users, setUsers] = useState([]);
+const useCollection = (name) => {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const get = async () => {
-      const newUsers = [];
-      const querySnapshot = await getDocs(collection(db, "users"));
+      const newData = [];
+      const querySnapshot = await getDocs(collection(db, name));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        console.log({ user: data });
-        newUsers.push({ user: data });
+        newData.push(data);
       });
-      setUsers(newUsers);
+      setData(newData);
     };
     get();
   }, []);
+  return { data };
+};
 
-  return { users };
-}
-
-export default useUsers;
+export default useCollection;

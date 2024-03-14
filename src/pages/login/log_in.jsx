@@ -7,6 +7,7 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import useInit from "../../hooks/useInit";
 import { setCredentials } from "../../redux/auth";
+import getUser from "../../hooks/getUser";
 
 function LogIn() {
   const { navigate } = useInit({ auth: false });
@@ -24,19 +25,19 @@ function LogIn() {
     }));
   };
 
-  const signIn = () => {
+  const signIn = async () => {
     signInWithEmailAndPassword(getAuth(), user.email, user.password)
-      .then((userCredential) => {
-        const { email, phoneNumber, photoURL, uid } = userCredential.user;
+      .then(async (userCredential) => {
+        const { uid } = userCredential.user;
         const token = userCredential._tokenResponse.refreshToken;
-        dispatch(
-          setCredentials({
-            user: { email, phoneNumber, photoURL, uid },
-            token,
-          })
-        );
-        console.log(userCredential);
-        navigate.push("/app", "root", "replace");
+        const user = await getUser(uid);
+        delete user.created_time;
+        if (user) {
+          dispatch(setCredentials({ user, token }));
+          navigate.push("/app", "root", "replace");
+        } else {
+          console.log("there was an error");
+        }
       })
       .catch((error) => {
         console.log(error.message);
