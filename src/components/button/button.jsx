@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 function Button({ text, onClick }) {
   return (
-    <IonButton className="w-100" expand="full" onClick={onClick}>
+    <IonButton className={classes.button} onClick={onClick}>
       {text}
     </IonButton>
   );
