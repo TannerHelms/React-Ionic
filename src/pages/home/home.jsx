@@ -6,8 +6,26 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { useEffect } from "react";
+import useInit from "../../hooks/useInit";
+import useUsers from "../../hooks/useUsers";
 
 function Home() {
+  const { user, token, navigate } = useInit(true);
+  const { users } = useUsers();
+
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
+
+  useEffect(() => {
+    //console.log(user);
+    //console.log(token);
+    if (!user) {
+      navigate.push("/", "root", "replace");
+    }
+  }, [user]);
+
   return (
     <IonPage>
       {/* Header */}

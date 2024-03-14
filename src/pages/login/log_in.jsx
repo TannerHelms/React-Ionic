@@ -1,13 +1,17 @@
-import { IonContent, IonInput, IonPage } from "@ionic/react";
-import { useEffect, useState } from "react";
-import Button from "../../components/button/button";
-import useInit from "../../hooks/useInit";
-import Input from "../../components/input/input";
-import Avatar from "../../components/avatar/avatar";
+import { IonContent, IonPage } from "@ionic/react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import Avatar from "../../components/avatar/avatar";
+import Button from "../../components/button/button";
+import Input from "../../components/input/input";
+import useInit from "../../hooks/useInit";
+import { setCredentials } from "../../redux/auth";
 
 function LogIn() {
-  const { navigate } = useInit();
+  const { navigate } = useInit({ auth: false });
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -20,17 +24,23 @@ function LogIn() {
     }));
   };
 
-  const signIn = async () => {
-    console.log(user);
-    await signInWithEmailAndPassword(getAuth(), user.email, user.password)
+  const signIn = () => {
+    signInWithEmailAndPassword(getAuth(), user.email, user.password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+        const { email, phoneNumber, photoURL, uid } = userCredential.user;
+        const token = userCredential._tokenResponse.refreshToken;
+        dispatch(
+          setCredentials({
+            user: { email, phoneNumber, photoURL, uid },
+            token,
+          })
+        );
+        console.log(userCredential);
+        navigate.push("/app", "root", "replace");
       })
       .catch((error) => {
         console.log(error.message);
       });
-    //navigate.push("/app", "root", "replace");
   };
 
   return (
@@ -47,11 +57,13 @@ function LogIn() {
           <h1>Log In</h1>
           <Input
             name="email"
+            type="email"
             placeholder="Enter Email"
             onChange={handleChange}
           />
           <Input
             name="password"
+            type="password"
             placeholder="Enter Password"
             onChange={handleChange}
           />

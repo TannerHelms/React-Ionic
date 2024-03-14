@@ -8,9 +8,9 @@ import {
 } from "@ionic/react";
 import { airplane, home, person } from "ionicons/icons";
 import { Redirect, Route } from "react-router-dom";
-import Home from "./home/home";
 import HomeDetails from "./home/home_details";
 import Messages from "./messages/messages";
+import Home from "./home/home";
 
 function Tabs() {
   return (
