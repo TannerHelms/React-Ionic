@@ -14,6 +14,7 @@ import Home from "./home/home";
 import useInit from "../hooks/useInit";
 import { setDetailUser } from "../redux/details";
 import Profile from "./profile/profile";
+import EditProfile from "./edit_profile/edit_profile";
 
 function Tabs() {
   const { user, dispatch, navigate } = useInit(true);
@@ -28,6 +29,7 @@ function Tabs() {
         <Route path="/app/home/details" component={HomeDetails} />
         <Route exact path="/app/messages" component={Messages} />
         <Route exact path="/app/profile" component={Profile} />
+        <Route exact path="/app/editProfile" component={EditProfile} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         {/* Home Icon */}

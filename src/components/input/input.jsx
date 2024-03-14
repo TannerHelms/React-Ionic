@@ -1,7 +1,7 @@
 import { IonInput } from "@ionic/react";
 import classes from "./input.module.css";
 
-function Input({ name, placeholder, type = "text", onChange }) {
+function Input({ name, placeholder, type = "text", onChange, value }) {
   return (
     <IonInput
       class={`${classes.input} bg-white`}
@@ -11,7 +11,8 @@ function Input({ name, placeholder, type = "text", onChange }) {
       labelPlacement="floating"
       fill="outline"
       placeholder={placeholder}
-      onIonChange={onChange}
+      onIonInput={onChange}
+      value={value ? value : ""}
     ></IonInput>
   );
 }

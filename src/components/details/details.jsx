@@ -22,7 +22,7 @@ export function Details({ user }) {
           <h2 className="black left">House Rules</h2>
           {user.house_rules?.map((rule, idx) => {
             return (
-              <p className="black">
+              <p key={idx} className="black">
                 {idx + 1} {rule}
               </p>
             );

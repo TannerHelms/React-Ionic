@@ -5,13 +5,12 @@ import { useDispatch } from "react-redux";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
+import getUser from "../../hooks/getUser";
 import useInit from "../../hooks/useInit";
 import { setCredentials } from "../../redux/auth";
-import getUser from "../../hooks/getUser";
 
 function LogIn() {
-  const { navigate } = useInit({ auth: false });
-  const dispatch = useDispatch();
+  const { navigate, dispatch } = useInit({ auth: false });
 
   const [user, setUser] = useState({
     email: "",
@@ -61,12 +60,14 @@ function LogIn() {
             type="email"
             placeholder="Enter Email"
             onChange={handleChange}
+            value={user.email}
           />
           <Input
             name="password"
             type="password"
             placeholder="Enter Password"
             onChange={handleChange}
+            value={user.password}
           />
           <p className="w-100 right pointer">Forgot Password?</p>
           <Button text="Log in" onClick={signIn} />

@@ -13,9 +13,11 @@ import { FaEnvelope, FaPhone, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Details } from "../../components/details/details";
 import useInit from "../../hooks/useInit";
 import SettingTile from "../../components/setting_tile/setting_tile";
+import { useState } from "react";
 
 function Profile() {
   const { user, navigate } = useInit(true);
+  
   return (
     <>
       {/* This is the Menu Settings */}
@@ -29,9 +31,13 @@ function Profile() {
           <IonMenuToggle>
             <div className="flex col g-20">
               {/* <IonButton>Click to close the menu</IonButton> */}
-              <SettingTile icon={<FaUser size="32px" />} text="Display Name" />
-              <SettingTile icon={<FaPhone size="32px" />} text="Phone Number" />
-              <SettingTile icon={<FaEnvelope size="32px" />} text="Email" />
+              <SettingTile
+                icon={<FaUser size="32px" />}
+                text="Edit Profile"
+                onClick={() => {
+                  navigate.push("/app/editProfile");
+                }}
+              />
               <SettingTile
                 icon={<FaSignOutAlt size="32px" />}
                 text="Log out of account"
