@@ -16,6 +16,7 @@ import { setDetailUser } from "../redux/details";
 import Profile from "./profile/profile";
 import EditProfile from "./edit_profile/edit_profile";
 import EditPhotos from "./edit_photos/edit_photos";
+import ChatDetails from "./chat_details";
 
 function Tabs() {
   const { user, dispatch, navigate } = useInit(true);
@@ -32,6 +33,7 @@ function Tabs() {
         <Route exact path="/app/profile" component={Profile} />
         <Route exact path="/app/editProfile" component={EditProfile} />
         <Route exact path="/app/editPhotos" component={EditPhotos} />
+        <Route exact path="/app/messages/details" component={ChatDetails} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         {/* Home Icon */}

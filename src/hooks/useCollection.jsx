@@ -13,6 +13,7 @@ const useCollection = (name) => {
         const data = doc.data();
         newData.push(data);
       });
+      
       setData(newData);
     };
     get();

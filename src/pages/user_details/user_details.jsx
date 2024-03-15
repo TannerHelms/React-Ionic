@@ -13,22 +13,26 @@ import { getUser } from "../../redux/details";
 
 function HomeDetails() {
   const user = useSelector(getUser);
-  console.log(user);
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar color="primary">
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/app/home"></IonBackButton>
-          </IonButtons>
-          <IonTitle>User Details</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent color="secondary">
-        <Details user={user} />
-      </IonContent>
-    </IonPage>
+
+  const body = (
+    <>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar color="primary">
+            <IonButtons slot="start">
+              <IonBackButton defaultHref="/app/home"></IonBackButton>
+            </IonButtons>
+            <IonTitle>User Details</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent color="secondary">
+          <Details user={user} />
+        </IonContent>
+      </IonPage>
+    </>
   );
+
+  return user ? body : null;
 }
 
 export default HomeDetails;

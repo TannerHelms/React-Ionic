@@ -1,19 +1,17 @@
 import { IonInput } from "@ionic/react";
-import classes from "./input.module.css";
 
-function Input({ name, placeholder, type = "text", onChange, value }) {
+function Input(props) {
   return (
     <IonInput
-      class={`${classes.input} bg-white`}
-      name={name}
-      type={type}
-      label={placeholder}
+      className="bg-white"
       labelPlacement="floating"
       fill="outline"
-      placeholder={placeholder}
-      onIonInput={onChange}
-      value={value ? value : ""}
-    ></IonInput>
+      name="email"
+      type={props.type}
+      label={props.label}
+      placeholder={props.label}
+      {...props}
+    />
   );
 }
 

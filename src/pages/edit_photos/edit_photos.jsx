@@ -7,32 +7,15 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import useInit from "../../hooks/useInit";
-import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
 import { UserPhotos } from "../../components/user_photos/user_photos";
+import useInit from "../../hooks/useInit";
 import classes from "./edit_photos.module.css";
-import { Crop } from "@ionic-native/crop/ngx";
-import { File } from "@ionic-native/file/ngx";
-import { Camera } from "@ionic-native/Camera/ngx";
 function EditPhotos() {
-  const { user } = useInit(true);
-  const camera = Camera();
-
-  const pickImage = (sourceType) => {
-    const options = {
-      quality: 100,
-      sourceType,
-      destinationType: camera.destinationType.FILE_URI,
-      encodingType: camera.EncodingType.JPEG,
-      mediaType: camera.MediaType.PICTURE,
-    };
-
-    camera.getPicture(options).then((imageData) => {
-      console.log("worked");
-    });
-  };
-
+  const { user, navigate } = useInit(true);
+  if (!user) {
+    navigate.push("/", "root", "replace");
+  }
   return (
     <IonPage>
       <IonHeader>

@@ -1,0 +1,331 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.spin {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+.gradient {
+  background-image: linear-gradient(to bottom, #763af6, #ff0000);
+  background-repeat: no-repeat;
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.container label {
+  margin-bottom: -10px;
+}
+
+.rotate {
+  animation: div-rotate 0.7s infinite steps(8);
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+@keyframes div-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.ycenter {
+  align-items: center;
+}
+
+.xcenter {
+  justify-content: center;
+}
+
+.centerx {
+  justify-content: center;
+}
+.centery {
+  align-items: center;
+}
+
+.g-10 {
+  gap: 10px;
+}
+
+.g-20 {
+  gap: 20px;
+}
+.bg-white {
+  background-color: white !important;
+}
+
+.bg-red {
+  background-color: red !important;
+}
+
+.red {
+  color: red;
+}
+
+.white {
+  color: white;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+.p-30 {
+  padding: 30px;
+}
+.p-40 {
+  padding: 40px;
+}
+.m-auto {
+  margin: auto;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.br {
+  border-radius: 8px;
+}
+
+.center {
+  text-align: center;
+}
+
+textarea {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  margin: 0px;
+}
+
+h2 {
+  margin: 0px;
+  font-size: 26px;
+}
+
+h3 {
+  margin: 0px;
+}
+
+p {
+  margin: 0px;
+}
+
+hr {
+  margin: 0px;
+}
+
+.label {
+  color: rgba(60, 60, 60, 0.6);
+  font-size: 17px;
+}
+
+p {
+  font-size: 17px;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: auto;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+.main {
+  margin: auto;
+  max-height: 100svh;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+.error {
+  color: red;
+}
+
+.pointer {
+  cursor: pointer;
+  color: #007aff;
+  font-weight: 500;
+}
+
+.back {
+  width: 100%;
+  text-align: left;
+}
+
+.w-50 {
+  width: 50%;
+}
+.w-fit {
+  width: fit-content;
+}
+
+.overflowy {
+  overflow-y: auto;
+}
+.overflowx {
+  overflow-x: auto;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.relative {
+  position: relative;
+}
+.black {
+  color: black;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-primary:hover {
+  background-color: #ccd9bf;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #ffffff;
+}

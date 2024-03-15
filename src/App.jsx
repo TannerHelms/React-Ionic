@@ -22,10 +22,8 @@ import "@ionic/react/css/text-transformation.css";
 import "./theme/variables.css";
 
 /* Pages */
-import LogIn from "./pages/login/log_in";
-import Home from "./pages/home/home";
 import Tabs from "./pages/tabs";
-
+import LogIn from "./pages/login/log_in";
 
 setupIonicReact();
 

@@ -1,11 +1,12 @@
 .cover {
-    border-radius: 8px;
-    aspect-ratio: 1 /1;
-    object-fit: cover;
+  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 .avatar {
-    position: absolute;
-    bottom: -60px;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  
 }

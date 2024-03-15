@@ -17,7 +17,7 @@ import useInit from "../../hooks/useInit";
 function Profile() {
   const { user, navigate } = useInit(true);
 
-  return (
+  const body = (
     <>
       {/* This is the Menu Settings */}
       <IonMenu contentId="main-content">
@@ -69,6 +69,8 @@ function Profile() {
       </IonPage>
     </>
   );
+
+  return user ? body : null;
 }
 
 export default Profile;
