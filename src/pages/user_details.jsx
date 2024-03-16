@@ -18,7 +18,7 @@ function HomeDetails() {
     <>
       <IonPage>
         <IonHeader>
-          <IonToolbar color="primary">
+          <IonToolbar>
             <IonButtons slot="start">
               <IonBackButton defaultHref="/app/home"></IonBackButton>
             </IonButtons>
@@ -26,7 +26,9 @@ function HomeDetails() {
           </IonToolbar>
         </IonHeader>
         <IonContent color="secondary" fullscreen>
-          <Details user={user} />
+          <div className="flex col w-full items-center h-full">
+            <Details user={user} />
+          </div>
         </IonContent>
       </IonPage>
     </>
