@@ -41,6 +41,7 @@ function ChatDetails() {
   const divRef = createRef();
 
   const handleCreateMessage = () => {
+    if (newMessage == "") return;
     const msg = {
       text: newMessage,
       user,
@@ -106,7 +107,11 @@ function ChatDetails() {
               );
             })}
           </div>
-          <div className={`${loading ? "" : "hidden"}`}>
+          <div
+            className={`${
+              loading ? "flex flex-col w-full items-center" : "hidden"
+            }`}
+          >
             <FaSpinner className="spin" size="50px" />
           </div>
         </IonContent>
