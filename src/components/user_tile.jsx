@@ -5,9 +5,16 @@ import { setDetailUser } from "../redux/details";
 import { UserPhotos } from "./user_photos";
 import Button from "./button";
 
-function UserTile({ user, distance }) {
+function UserTile({ user, distance, onLoad }) {
   const { navigate, dispatch } = useInit(true);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (loading) {
+      onLoad();
+    }
+  }, [loading]);
+
   return (
     <IonCard
       className="flex flex-col itme p-5 max-w-xl gap-3 opacity-100"

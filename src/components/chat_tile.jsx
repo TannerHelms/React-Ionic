@@ -6,11 +6,17 @@ import useInit from "../hooks/useInit";
 import { setChat } from "../redux/chat";
 import Avatar from "./avatar";
 
-function ChatTile({ user, chat }) {
+function ChatTile({ user, chat, onLoad }) {
   const { dispatch, navigate } = useInit(true);
   const [toUser, setToUser] = useState(null);
   const [timeAgo, setTimeAgo] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (loading) {
+      onLoad();
+    }
+  }, [loading]);
 
   useEffect(() => {
     const setData = async () => {
@@ -31,7 +37,6 @@ function ChatTile({ user, chat }) {
     toUser && (
       <div
         className="flex flex-row items-center justify-between w-full cursor-pointer border-b-2"
-        style={{ display: loading ? "none" : "flex" }}
         onClick={() => {
           const newUser = toUser;
           delete newUser.created_time;
