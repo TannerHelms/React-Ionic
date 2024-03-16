@@ -17,7 +17,6 @@ import { useState } from "react";
 
 function Profile() {
   const { user, navigate } = useInit(true);
-  const [loading, setLoading] = useState(true);
 
   const body = (
     <>
@@ -67,7 +66,7 @@ function Profile() {
         {/* This is the Page Content */}
         <IonContent color="secondary">
           <div className="flex flex-col w-full items-center">
-            <Details user={user} onLoad={() => setLoading(false)} />
+            <Details user={user} />
           </div>
         </IonContent>
       </IonPage>

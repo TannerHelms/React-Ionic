@@ -54,7 +54,6 @@ function ChatDetails() {
 
   useEffect(() => {
     if (resp?.message) {
-      console.log(resp?.message);
       setCreate(false);
     }
   }, [resp]);

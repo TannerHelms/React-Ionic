@@ -13,11 +13,6 @@ function MessageTile({ message, onLoad }) {
     const update = async () => {
       const timeAgo = calculateTimeAgo(message.timestamp);
       setTimeAgo(timeAgo);
-
-      if (!message.timestamp) {
-        console.log(message);
-      }
-
       let uid = null;
 
       if (message.user.uid) {
