@@ -2,7 +2,10 @@ import {
   IonBackButton,
   IonButtons,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonHeader,
+  IonIcon,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -10,6 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import { Details } from "../components/details";
 import { getUser } from "../redux/details";
+import { add, chatbox } from "ionicons/icons";
 
 function HomeDetails() {
   const user = useSelector(getUser);
@@ -28,6 +32,11 @@ function HomeDetails() {
         <IonContent color="secondary" fullscreen>
           <div className="flex col w-full items-center h-full">
             <Details user={user} />
+            {/* <IonFab>
+              <IonFabButton>
+                <IonIcon icon={chatbox}></IonIcon>
+              </IonFabButton>
+            </IonFab> */}
           </div>
         </IonContent>
       </IonPage>

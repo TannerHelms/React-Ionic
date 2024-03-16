@@ -20,9 +20,8 @@ import useChatMesages from "../hooks/useChatMessages";
 import useCreateMessage from "../hooks/useCreateMessage";
 import useInit from "../hooks/useInit";
 import { selectChatId, selectChatUid, selectUser } from "../redux/chat";
-import { FaSpinner } from "react-icons/fa";
 function ChatDetails() {
-  const { user, token, navigate, dispatch } = useInit({ auth: true });
+  const { user } = useInit({ auth: true });
   const chatId = useSelector(selectChatId);
   const chatUid = useSelector(selectChatUid);
   const userB = useSelector(selectUser);
@@ -36,8 +35,6 @@ function ChatDetails() {
     send: create,
     setState: setNewMessage,
   });
-  const [loadCounter, setLoadCounter] = useState(0);
-  const [loading, setLoading] = useState(true);
   const divRef = createRef();
 
   const handleCreateMessage = () => {
@@ -57,19 +54,6 @@ function ChatDetails() {
       setCreate(false);
     }
   }, [resp]);
-
-  useEffect(() => {
-    if (newMessage == "") {
-      divRef.current?.scrollIntoView({ block: "end" });
-    }
-  }, [messages, newMessage]);
-
-  useEffect(() => {
-    if (loadCounter == messages?.length) {
-      divRef.current?.scrollIntoView({ block: "end" });
-      setLoading(false);
-    }
-  }, [loadCounter]);
 
   const body = (
     <>
@@ -91,27 +75,12 @@ function ChatDetails() {
         <IonContent>
           <div
             mode="bottom"
-            className={`flex flex-col p-5 overflow-y-auto ${
-              loading ? "hidden" : "block"
-            }`}
+            className="flex flex-col p-5 overflow-y-auto"
             ref={divRef}
           >
             {messages?.map((message, idx) => {
-              return (
-                <MessageTile
-                  key={idx}
-                  message={message}
-                  onLoad={() => setLoadCounter((curr) => curr + 1)}
-                />
-              );
+              return <MessageTile key={idx} message={message} />;
             })}
-          </div>
-          <div
-            className={`${
-              loading ? "flex flex-col w-full items-center" : "hidden"
-            }`}
-          >
-            <FaSpinner className="spin" size="50px" />
           </div>
         </IonContent>
         <IonFooter>

@@ -3,11 +3,10 @@ import calculateTimeAgo from "../api/calculateTimeAgo";
 import { getDoc } from "firebase/firestore";
 import useInit from "../hooks/useInit";
 
-function MessageTile({ message, onLoad }) {
+function MessageTile({ message }) {
   const { user } = useInit(true);
   const [timeAgo, setTimeAgo] = useState(null);
   const [sent, setSent] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const update = async () => {
@@ -27,17 +26,10 @@ function MessageTile({ message, onLoad }) {
       } else {
         setSent(false);
       }
-      setLoading(false);
     };
-
     update();
   }, [message]);
 
-  useEffect(() => {
-    if (loading) {
-      onLoad();
-    }
-  }, [loading]);
   const body = (
     <>
       <div className={`flex flex-col gap-2 p-5 4 `}>
