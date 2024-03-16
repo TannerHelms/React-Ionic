@@ -11,23 +11,39 @@ import {
   IonPage,
   IonToolbar,
 } from "@ionic/react";
-import { add, addCircleOutline, send, sendOutline } from "ionicons/icons";
+import { addCircleOutline, send } from "ionicons/icons";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../components/avatar";
 import MessageTile from "../components/message_tile";
 import useChatMesages from "../hooks/useChatMessages";
 import useInit from "../hooks/useInit";
 import { selectChatId, selectUser } from "../redux/chat";
-import { useEffect, useState } from "react";
-import useCreateMessage from "../api/createMessage";
+import useCreateMessage from "../hooks/useCreateMessage";
 function ChatDetails() {
   const { user, token, navigate, dispatch } = useInit({ auth: true });
   const chatId = useSelector(selectChatId);
   const userB = useSelector(selectUser);
   const { data: messages } = useChatMesages(chatId);
   const [newMessage, setNewMessage] = useState();
+  const [create, setCreate] = useState(false);
+  const { resp } = useCreateMessage({
+    user,
+    message: newMessage,
+    chatId,
+    send: create,
+  });
 
-  const handleCreateMessage = () => {};
+  const handleCreateMessage = () => {
+    setCreate(true);
+  };
+
+  useEffect(() => {
+    if (resp?.message) {
+      console.log(resp?.message);
+      setCreate(false);
+    }
+  }, [resp]);
 
   const body = (
     <>
