@@ -9,14 +9,14 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { useState } from "react";
-import Button from "../../components/button/button";
-import Input from "../../components/input/input";
 import getUser from "../../hooks/getUser";
 import updateUserDoc from "../../hooks/updateUserDoc";
 import useAutocomplete from "../../hooks/useAutocomplete";
 import useInit from "../../hooks/useInit";
 import { setCredentials } from "../../redux/auth";
 import classes from "./edit_profile.module.css";
+import Button from "../../components/button";
+import Input from "../../components/input";
 
 function EditProfile() {
   const { user, token, dispatch } = useInit(true);
@@ -39,6 +39,7 @@ function EditProfile() {
   });
 
   const handleChange = (e) => {
+    console.log("chanfge");
     if (e.target.name == "address") {
       setSearch(true);
     }
@@ -85,34 +86,34 @@ function EditProfile() {
                 <>
                   <Input
                     name="email"
-                    placeholder="Email"
+                    label="Email"
                     value={newUser.email}
                     onChange={handleChange}
                     type="email"
                   />
                   <Input
                     name="display_name"
-                    placeholder="Display Name"
+                    label="Display Name"
                     value={newUser.display_name}
                     onChange={handleChange}
                   />
                   <Input
                     name="age"
-                    placeholder="Age"
+                    label="Age"
                     value={newUser.age}
                     onChange={handleChange}
                     type="number"
                   />
                   <Input
                     name="phone_number"
-                    placeholder="Phone Number"
+                    label="Phone Number"
                     value={newUser.phone_number}
                     onChange={handleChange}
                   />
                   <div className="flex col g-10">
                     <Input
                       name="address"
-                      placeholder="Address"
+                      label="Address"
                       value={newUser.address}
                       onChange={handleChange}
                     />

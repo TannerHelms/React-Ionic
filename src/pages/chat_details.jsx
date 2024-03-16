@@ -7,12 +7,11 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useSelector } from "react-redux";
-import Avatar from "../components/avatar/avatar";
+import Avatar from "../components/avatar";
+import MessageTile from "../components/message_tile";
 import useChatMesages from "../hooks/useChatMessages";
 import useInit from "../hooks/useInit";
 import { selectChatId, selectUser } from "../redux/chat";
-import { useEffect } from "react";
-import MessageTile from "../components/message_tile";
 function ChatDetails() {
   const { user, token, navigate, dispatch } = useInit(true);
   const chatId = useSelector(selectChatId);

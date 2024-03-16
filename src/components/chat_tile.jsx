@@ -1,11 +1,10 @@
-import { IonCard, IonCardContent, IonCol, IonGrid, IonRow } from "@ionic/react";
 import { getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Avatar from "./avatar/avatar";
+import { FaArrowRight } from "react-icons/fa";
 import calculateTimeAgo from "../hooks/calculateTimeAgo";
-import { setChat } from "../redux/chat";
 import useInit from "../hooks/useInit";
+import { setChat } from "../redux/chat";
+import Avatar from "./avatar";
 
 function ChatTile({ user, chat }) {
   const { dispatch, navigate } = useInit(true);

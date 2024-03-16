@@ -10,8 +10,8 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { FaCamera, FaSignOutAlt, FaUser } from "react-icons/fa";
-import { Details } from "../../components/details/details";
-import SettingTile from "../../components/setting_tile/setting_tile";
+import { Details } from "../../components/details";
+import SettingTile from "../../components/setting_tile";
 import useInit from "../../hooks/useInit";
 
 function Profile() {

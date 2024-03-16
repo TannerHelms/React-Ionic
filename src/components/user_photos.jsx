@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import classes from "./user_photos.module.css";
-import Avatar from "../avatar/avatar";
+import Avatar from "./avatar";
 export function UserPhotos({ user, size = "140", onLoad }) {
   const [loadingCover, setLoadingCover] = useState(true);
   const [loadingAvatar, setLoadingAvatar] = useState(true);
@@ -13,17 +12,17 @@ export function UserPhotos({ user, size = "140", onLoad }) {
 
   return (
     <>
-      {/* Photos */}
       <div className="relative">
         <img
-          className={classes.cover}
+          className="rounded-lg aspect-square object-cover"
           src={user.photo_background}
           alt=""
-          onLoad={() => {
-            setLoadingCover(false);
-          }}
+          onLoad={() => {}}
         />
-        <div className={classes.avatar}>
+        <div
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+          style={{ bottom: "-60px" }}
+        >
           <Avatar
             src={user.photo_url}
             alt="photo"

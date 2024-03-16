@@ -1,12 +1,11 @@
 import React from "react";
-import classes from "./details.module.css";
-import { UserPhotos } from "../user_photos/user_photos";
+import { UserPhotos } from "./user_photos";
 
 export function Details({ user }) {
   return (
     <div className={`flex col w-100 centery centerx`}>
-      <div className={classes.content}>
-        <div className={`flex col g-20 ${classes.top}`}>
+      <div className="max-w-lg">
+        <div className="flex col g-20 p-5">
           <UserPhotos user={user} />
           {/* User Info */}
           <h2 className="black center">{user.display_name}</h2>
@@ -16,7 +15,10 @@ export function Details({ user }) {
           </div>
         </div>
         {/* User Details */}
-        <div className={`flex col g-20 ${classes.info}`}>
+        <div
+          className="flex col g-20 w-full p-5 rounded-t-2xl"
+          style={{ backgroundColor: "#eef2f3" }}
+        >
           <h2 className="black left">Bio</h2>
           <p className="black">{user.bio}</p>
           <h2 className="black left">House Rules</h2>

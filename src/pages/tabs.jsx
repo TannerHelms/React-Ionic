@@ -15,7 +15,7 @@ import useInit from "../hooks/useInit";
 import { setDetailUser } from "../redux/details";
 import Profile from "./profile/profile";
 import EditProfile from "./edit_profile/edit_profile";
-import EditPhotos from "./edit_photos/edit_photos";
+import EditPhotos from "./edit_photos";
 import ChatDetails from "./chat_details";
 
 function Tabs() {

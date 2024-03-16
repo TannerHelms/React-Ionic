@@ -23,7 +23,7 @@ import "./theme/variables.css";
 
 /* Pages */
 import Tabs from "./pages/tabs";
-import LogIn from "./pages/login/log_in";
+import LogIn from "./pages/log_in";
 
 setupIonicReact();
 

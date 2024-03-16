@@ -1,18 +1,17 @@
+import React from "react";
 import { IonInput } from "@ionic/react";
 
-function Input(props) {
+const Input = ({ label, ...props }) => {
   return (
     <IonInput
       className="bg-white"
       labelPlacement="floating"
       fill="outline"
-      name="email"
-      type={props.type}
-      label={props.label}
-      placeholder={props.label}
+      label={label}
+      placeholder={label}
       {...props}
-    />
+    ></IonInput>
   );
-}
+};
 
 export default Input;

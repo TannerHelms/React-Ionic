@@ -8,7 +8,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useSelector } from "react-redux";
-import { Details } from "../../components/details/details";
+import { Details } from "../../components/details";
 import { getUser } from "../../redux/details";
 
 function HomeDetails() {

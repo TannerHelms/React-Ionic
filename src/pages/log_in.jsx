@@ -2,10 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { IonButton, IonContent, IonInput, IonPage } from "@ionic/react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import handleSignIn from "../../api/handleSignIn";
-import Avatar from "../../components/avatar/avatar";
-import useInit from "../../hooks/useInit";
-import { setCredentials } from "../../redux/auth";
+import handleSignIn from "../api/handleSignIn";
+import Avatar from "../components/avatar";
+import useInit from "../hooks/useInit";
+import { setCredentials } from "../redux/auth";
+import Button from "../components/button";
+import Input from "../components/input";
 
 const schema = z.object({
   email: z
@@ -18,10 +20,8 @@ const schema = z.object({
 function LogIn() {
   const { navigate, dispatch } = useInit({ auth: false });
   const {
-    register,
     handleSubmit,
     setError,
-    trigger,
     control,
     formState: { errors, isSubmitting },
   } = useForm({
@@ -49,7 +49,6 @@ function LogIn() {
   return (
     <IonPage>
       <IonContent fullscreen>
-        {/* Content Container */}
         {/* Email Input */}
         <div className="flex flex-col space-y-6 justify-center items-center h-screen p-8 w-full">
           <Avatar
@@ -60,16 +59,24 @@ function LogIn() {
           <h1>Log In</h1>
           {errors.root && <p className="text-red-500">{errors.root.message}</p>}
           <form className="w-full space-y-6" onSubmit={handleSubmit(onSubmit)}>
-            <IonInput
-              className="bg-white"
-              labelPlacement="floating"
-              fill="outline"
+            <Controller
               name="email"
-              type="email"
-              label="Enter Email"
-              placeholder="Enter Email"
-              {...register("email")}
+              control={control}
+              render={({
+                field: { onChange, onBlur, value, ref },
+                fieldState: { invalid, isTouched, isDirty, error },
+              }) => (
+                <Input
+                  name="email"
+                  type="email"
+                  label="Enter Email"
+                  value={value}
+                  onIonChange={onChange}
+                  onIonBlur={onBlur}
+                />
+              )}
             />
+
             {errors.email && (
               <p className="text-red-500">{errors.email.message}</p>
             )}
@@ -80,18 +87,13 @@ function LogIn() {
                 field: { onChange, onBlur, value, ref },
                 fieldState: { invalid, isTouched, isDirty, error },
               }) => (
-                <IonInput
-                  className="bg-white"
-                  labelPlacement="floating"
-                  fill="outline"
+                <Input
                   name="password"
                   type="password"
                   label="Enter Password"
-                  placeholder="Enter Password"
                   value={value}
                   onIonChange={onChange}
                   onIonBlur={onBlur}
-                  isDirty={(e) => console.log(e)}
                 />
               )}
             />
@@ -100,13 +102,7 @@ function LogIn() {
               <p className="text-red-500">{errors.password.message}</p>
             )}
             <p className="w-100 right pointer">Forgot Password?</p>
-            <IonButton
-              className="text-black text-lg w-full"
-              disabled={isSubmitting}
-              type="submit"
-            >
-              Submit
-            </IonButton>
+            <Button disabled={isSubmitting} type="submit" text="Submit" />
             <div className="flex flex-row gap-2 justify-center">
               <p>Don't have account?</p>
               <p className="pointer">Sign Up</p>
