@@ -1,6 +1,12 @@
 const calculateTimeAgo = (lastMessageTime) => {
     const currentTime = new Date();
-    const messageTime = lastMessageTime.toDate();
+
+    if (lastMessageTime) {
+        var messageTime = lastMessageTime.toDate();
+    } else {
+        var messageTime = new Date();
+    }
+
     const timeDifference = currentTime - messageTime;
     const seconds = Math.floor(timeDifference / 1000);
     const minutes = Math.floor(seconds / 60);

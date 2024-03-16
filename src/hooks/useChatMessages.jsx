@@ -11,10 +11,10 @@ const useChatMesages = (chatId) => {
       const querySnapshot = await getDocs(collectionRef);
       await Promise.all(
         querySnapshot.docs.map(async (doc) => {
-          const data = doc.data();
-          const chat = await getDoc(data.chat).then((chat) => chat.data());
+          const docData = doc.data();
+          const chat = await getDoc(docData.chat).then((chat) => chat.data());
           if (chat.chat_group_id === chatId) {
-            newData.push(data);
+            newData.push(docData);
           }
         })
       );
@@ -25,7 +25,7 @@ const useChatMesages = (chatId) => {
     fetchData();
   }, [chatId]);
 
-  return { data };
+  return { data, setData };
 };
 
 export default useChatMesages;

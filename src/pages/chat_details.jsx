@@ -12,7 +12,7 @@ import {
   IonPage,
   IonToolbar,
 } from "@ionic/react";
-import { addCircleOutline, send } from "ionicons/icons";
+import { addCircleOutline, send, time } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../components/avatar";
@@ -22,13 +22,16 @@ import useInit from "../hooks/useInit";
 import { selectChatId, selectChatUid, selectUser } from "../redux/chat";
 import useCreateMessage from "../hooks/useCreateMessage";
 import ScrollToBottom from "react-scroll-to-bottom";
+import { serverTimestamp } from "firebase/firestore";
+import app, { db } from "../config/firebase-config";
+import * as firebase from "firebase/app";
 function ChatDetails() {
   const { user, token, navigate, dispatch } = useInit({ auth: true });
   const chatId = useSelector(selectChatId);
   const chatUid = useSelector(selectChatUid);
   const userB = useSelector(selectUser);
-  const { data: messages } = useChatMesages(chatId);
-  const [newMessage, setNewMessage] = useState();
+  const { data: messages, setData } = useChatMesages(chatId);
+  const [newMessage, setNewMessage] = useState("");
   const [create, setCreate] = useState(false);
   const { resp } = useCreateMessage({
     user,
@@ -38,6 +41,13 @@ function ChatDetails() {
   });
 
   const handleCreateMessage = () => {
+    const msg = {
+      text: newMessage,
+      user,
+      timestamp: null,
+    };
+
+    setData([...messages, msg]);
     setCreate(true);
   };
 
@@ -66,7 +76,10 @@ function ChatDetails() {
         {/* End Header */}
         {/* Content */}
         <IonContent>
-          <ScrollToBottom mode="bottom" className="flex flex-col p-5 overflow-y-auto">
+          <ScrollToBottom
+            mode="bottom"
+            className="flex flex-col p-5 overflow-y-auto"
+          >
             {messages?.map((message, idx) => {
               return <MessageTile key={idx} message={message} />;
             })}

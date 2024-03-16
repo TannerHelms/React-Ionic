@@ -12,9 +12,20 @@ function MessageTile({ message }) {
     const update = async () => {
       const timeAgo = calculateTimeAgo(message.timestamp);
       setTimeAgo(timeAgo);
-      const sender = await getDoc(message.user);
 
-      const uid = sender.data().uid;
+      if (!message.timestamp) {
+        console.log(message);
+      }
+
+      let uid = null;
+
+      if (message.user.uid) {
+        uid = message.user.uid;
+      } else {
+        const sender = await getDoc(message.user);
+        uid = sender.data().uid;
+      }
+
       if (uid === user.uid) {
         setSent(true);
       } else {
