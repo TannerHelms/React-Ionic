@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { db } from "../config/firebase-config";
 import { v4 as uuidv4 } from "uuid";
 // Function to create a new message in Firestore
-function useCreateMessage({ user, message, chatId, send }) {
+function useCreateMessage({ user, message, chatId, send, setState }) {
   const [resp, setResp] = useState({ message: "" });
 
   useEffect(() => {
@@ -25,6 +25,7 @@ function useCreateMessage({ user, message, chatId, send }) {
         timestamp,
         user: doc(db, "users", user.uid),
       });
+      setState("");
       setResp({ message: "created message" });
     };
     if (send) {

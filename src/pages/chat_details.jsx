@@ -2,7 +2,6 @@ import {
   IonBackButton,
   IonButton,
   IonButtons,
-  IonCol,
   IonContent,
   IonFooter,
   IonHeader,
@@ -12,19 +11,16 @@ import {
   IonPage,
   IonToolbar,
 } from "@ionic/react";
-import { addCircleOutline, send, time } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { addCircleOutline, send } from "ionicons/icons";
+import { createRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Avatar from "../components/avatar";
 import MessageTile from "../components/message_tile";
 import useChatMesages from "../hooks/useChatMessages";
+import useCreateMessage from "../hooks/useCreateMessage";
 import useInit from "../hooks/useInit";
 import { selectChatId, selectChatUid, selectUser } from "../redux/chat";
-import useCreateMessage from "../hooks/useCreateMessage";
-import ScrollToBottom from "react-scroll-to-bottom";
-import { serverTimestamp } from "firebase/firestore";
-import app, { db } from "../config/firebase-config";
-import * as firebase from "firebase/app";
+import { FaSpinner } from "react-icons/fa";
 function ChatDetails() {
   const { user, token, navigate, dispatch } = useInit({ auth: true });
   const chatId = useSelector(selectChatId);
@@ -38,7 +34,11 @@ function ChatDetails() {
     message: newMessage,
     chatId: chatUid,
     send: create,
+    setState: setNewMessage,
   });
+  const [loadCounter, setLoadCounter] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const divRef = createRef();
 
   const handleCreateMessage = () => {
     const msg = {
@@ -58,6 +58,19 @@ function ChatDetails() {
     }
   }, [resp]);
 
+  useEffect(() => {
+    if (newMessage == "") {
+      divRef.current?.scrollIntoView({ block: "end" });
+    }
+  }, [messages, newMessage]);
+
+  useEffect(() => {
+    if (loadCounter == messages?.length) {
+      divRef.current?.scrollIntoView({ block: "end" });
+      setLoading(false);
+    }
+  }, [loadCounter]);
+
   const body = (
     <>
       <IonPage>
@@ -76,14 +89,26 @@ function ChatDetails() {
         {/* End Header */}
         {/* Content */}
         <IonContent>
-          <ScrollToBottom
+          <div
             mode="bottom"
-            className="flex flex-col p-5 overflow-y-auto"
+            className={`flex flex-col p-5 overflow-y-auto ${
+              loading ? "hidden" : "block"
+            }`}
+            ref={divRef}
           >
             {messages?.map((message, idx) => {
-              return <MessageTile key={idx} message={message} />;
+              return (
+                <MessageTile
+                  key={idx}
+                  message={message}
+                  onLoad={() => setLoadCounter((curr) => curr + 1)}
+                />
+              );
             })}
-          </ScrollToBottom>
+          </div>
+          <div className={`${loading ? "" : "hidden"}`}>
+            <FaSpinner className="spin" size="50px" />
+          </div>
         </IonContent>
         <IonFooter>
           <div className="shadow-md pt-4 bg-white p-3 flex flex-row items-center gap-2">
@@ -95,6 +120,7 @@ function ChatDetails() {
                 class="w-full"
                 color="white"
                 onIonInput={(v) => setNewMessage(v.target.value)}
+                value={newMessage}
               />
               <IonButton slot="end" fill="clear" onClick={handleCreateMessage}>
                 <IonIcon icon={send} color="blue" />
@@ -110,10 +136,3 @@ function ChatDetails() {
 }
 
 export default ChatDetails;
-{
-  /* <div className="flex flex-col justify-end p-5">
-          {messages?.map((message, idx) => {
-            return <MessageTile key={idx} message={message} />;
-          })}
-        </div> */
-}
