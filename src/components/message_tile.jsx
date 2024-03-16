@@ -32,9 +32,11 @@ function MessageTile({ message }) {
           {timeAgo && <p className="label">{timeAgo}</p>}
         </div>
         <div
-          className={`w-80 ${
-            sent ? "bg-blue-700 text-white" : "bg-white"
-          } p-3 rounded-md shadow-md ${sent ? "ml-auto" : ""}`}
+          className={`w-fit max-w-80 ${
+            sent
+              ? "bg-blue-700 text-white rounded-tl-lg rounded-bl-lg rounded-br-lg"
+              : "bg-white rounded-tr-lg rounded-bl-lg rounded-br-lg"
+          } p-3 shadow-md ${sent ? "ml-auto" : ""}`}
         >
           <p className="">{message.text}</p>
         </div>

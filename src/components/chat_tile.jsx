@@ -36,7 +36,7 @@ function ChatTile({ user, chat }) {
           const newUser = toUser;
           delete newUser.created_time;
           dispatch(setChat({ chatId: chat.chat_group_id, user: toUser }));
-          navigate.push("/app/messages/details");
+          navigate.push("/chat/details");
         }}
       >
         <div className="flex flex-row gap-4 items-center">

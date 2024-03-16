@@ -24,6 +24,7 @@ import "./theme/variables.css";
 /* Pages */
 import Tabs from "./pages/tabs";
 import LogIn from "./pages/log_in";
+import ChatDetails from "./pages/chat_details";
 
 setupIonicReact();
 
@@ -34,6 +35,7 @@ const App = () => (
         <Route exact path="/" component={LogIn} />
         <Route exact path="/login" component={LogIn} />
         <Route path="/app" component={Tabs} />
+        <Route path="/chat/details" component={ChatDetails} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

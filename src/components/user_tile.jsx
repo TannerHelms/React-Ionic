@@ -18,7 +18,7 @@ function UserTile({ user, distance }) {
     >
       <UserPhotos user={user} onLoad={() => setLoading(false)} />
       {/* User Info */}
-      <div className="flex row between w-100 black">
+      <div className="flex row between w-100 black mt-3">
         <p>{user.display_name}</p>
         <p>{distance}</p>
       </div>

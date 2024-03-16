@@ -64,7 +64,9 @@ function Profile() {
 
         {/* This is the Page Content */}
         <IonContent color="secondary">
-          <Details user={user} />
+          <div className="flex flex-col w-full items-center">
+            <Details user={user} />
+          </div>
         </IonContent>
       </IonPage>
     </>
