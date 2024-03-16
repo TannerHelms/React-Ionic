@@ -35,7 +35,13 @@ function ChatTile({ user, chat }) {
         onClick={() => {
           const newUser = toUser;
           delete newUser.created_time;
-          dispatch(setChat({ chatId: chat.chat_group_id, user: toUser }));
+          dispatch(
+            setChat({
+              chatId: chat.chat_group_id,
+              user: toUser,
+              chatUid: chat.id,
+            })
+          );
           navigate.push("/chat/details");
         }}
       >

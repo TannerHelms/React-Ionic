@@ -11,9 +11,9 @@ const useCollection = (name) => {
       const querySnapshot = await getDocs(collection(db, name));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        newData.push(data);
+        newData.push({ ...data, id: doc.id });
       });
-      
+
       setData(newData);
     };
     get();

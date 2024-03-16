@@ -1,4 +1,10 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import useCollection from "./useCollection";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase-config";
@@ -9,13 +15,16 @@ function useCreateMessage({ user, message, chatId, send }) {
 
   useEffect(() => {
     const create = async () => {
-      const newUuid = uuidv4();
+      const newUuid = uuidv4().replace(/-/g, "");
 
-      // await setDoc(doc(db, "chat_messages", `${newUuid}`), {
-      //   text: message,
-      //   timstamp: Date.now(),
-      //   user: user.uid,
-      // });
+      const timestamp = serverTimestamp();
+
+      await setDoc(doc(db, "chat_messages", newUuid), {
+        chat: doc(db, "chats", chatId),
+        text: message,
+        timestamp,
+        user: doc(db, "users", user.uid),
+      });
       setResp({ message: "created message" });
     };
     if (send) {

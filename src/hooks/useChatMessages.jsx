@@ -18,6 +18,7 @@ const useChatMesages = (chatId) => {
           }
         })
       );
+      newData.sort((a, b) => a.timestamp - b.timestamp);
       setData(newData);
     };
 

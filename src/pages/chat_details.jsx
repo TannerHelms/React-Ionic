@@ -4,6 +4,7 @@ import {
   IonButtons,
   IonCol,
   IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
   IonInput,
@@ -18,11 +19,13 @@ import Avatar from "../components/avatar";
 import MessageTile from "../components/message_tile";
 import useChatMesages from "../hooks/useChatMessages";
 import useInit from "../hooks/useInit";
-import { selectChatId, selectUser } from "../redux/chat";
+import { selectChatId, selectChatUid, selectUser } from "../redux/chat";
 import useCreateMessage from "../hooks/useCreateMessage";
+import ScrollToBottom from "react-scroll-to-bottom";
 function ChatDetails() {
   const { user, token, navigate, dispatch } = useInit({ auth: true });
   const chatId = useSelector(selectChatId);
+  const chatUid = useSelector(selectChatUid);
   const userB = useSelector(selectUser);
   const { data: messages } = useChatMesages(chatId);
   const [newMessage, setNewMessage] = useState();
@@ -30,7 +33,7 @@ function ChatDetails() {
   const { resp } = useCreateMessage({
     user,
     message: newMessage,
-    chatId,
+    chatId: chatUid,
     send: create,
   });
 
@@ -62,41 +65,30 @@ function ChatDetails() {
         </IonHeader>
         {/* End Header */}
         {/* Content */}
-        <IonContent fullscreen>
-          <ion-grid
-            size="12"
-            size-sm="8"
-            offset-sm="2"
-            class="h-full grid w-full p-0"
-          >
-            <IonCol class="ion-align-self-end w-full p-0">
-              <div className="flex flex-col p-5">
-                {messages?.map((message, idx) => {
-                  return <MessageTile key={idx} message={message} />;
-                })}
-              </div>
-              <div className="shadow-md pt-4 bg-white p-3 flex flex-row items-center gap-2">
-                <IonIcon icon={addCircleOutline} size="large" />
-                <IonItem color="white" className="w-full" no-lines>
-                  <IonInput
-                    name="Message"
-                    placeholder="Enter Message"
-                    class="w-full"
-                    color="white"
-                    onIonInput={(v) => setNewMessage(v.target.value)}
-                  />
-                  <IonButton
-                    slot="end"
-                    fill="clear"
-                    onClick={handleCreateMessage}
-                  >
-                    <IonIcon icon={send} color="blue" />
-                  </IonButton>
-                </IonItem>
-              </div>
-            </IonCol>
-          </ion-grid>
+        <IonContent>
+          <ScrollToBottom mode="bottom" className="flex flex-col p-5 overflow-y-auto">
+            {messages?.map((message, idx) => {
+              return <MessageTile key={idx} message={message} />;
+            })}
+          </ScrollToBottom>
         </IonContent>
+        <IonFooter>
+          <div className="shadow-md pt-4 bg-white p-3 flex flex-row items-center gap-2">
+            <IonIcon icon={addCircleOutline} size="large" />
+            <IonItem color="white" className="w-full" no-lines>
+              <IonInput
+                name="Message"
+                placeholder="Enter Message"
+                class="w-full"
+                color="white"
+                onIonInput={(v) => setNewMessage(v.target.value)}
+              />
+              <IonButton slot="end" fill="clear" onClick={handleCreateMessage}>
+                <IonIcon icon={send} color="blue" />
+              </IonButton>
+            </IonItem>
+          </div>
+        </IonFooter>
       </IonPage>
     </>
   );
