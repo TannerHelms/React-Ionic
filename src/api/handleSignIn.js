@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import getUser from "../hooks/getUser";
+import getUser from "./getUser";
 
 const handleSignIn = async (data) => {
     try {

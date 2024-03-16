@@ -7,10 +7,10 @@ import {
 } from "@ionic/react";
 import { useEffect } from "react";
 import { FaSpinner } from "react-icons/fa";
-import ChatTile from "../../components/chat_tile";
-import useCollection from "../../hooks/useCollection";
-import useInit from "../../hooks/useInit";
-import { setChat } from "../../redux/chat";
+import ChatTile from "../components/chat_tile";
+import useCollection from "../hooks/useCollection";
+import useInit from "../hooks/useInit";
+import { setChat } from "../redux/chat";
 
 function Messages() {
   const { user, navigate, dispatch } = useInit(true);

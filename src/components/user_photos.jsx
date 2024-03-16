@@ -17,7 +17,9 @@ export function UserPhotos({ user, size = "140", onLoad }) {
           className="rounded-lg aspect-square object-cover"
           src={user.photo_background}
           alt=""
-          onLoad={() => {}}
+          onLoad={() => {
+            setLoadingCover(false);
+          }}
         />
         <div
           className="absolute bottom-0 left-1/2 transform -translate-x-1/2"

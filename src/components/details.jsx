@@ -3,8 +3,8 @@ import { UserPhotos } from "./user_photos";
 
 export function Details({ user }) {
   return (
-    <div className={`flex col w-100 centery centerx`}>
-      <div className="max-w-lg">
+    <div className={`flex col w-100 centery h-100`}>
+      <div className="max-w-lg h-full">
         <div className="flex col g-20 p-5">
           <UserPhotos user={user} />
           {/* User Info */}

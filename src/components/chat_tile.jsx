@@ -1,7 +1,7 @@
 import { getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import calculateTimeAgo from "../hooks/calculateTimeAgo";
+import calculateTimeAgo from "../api/calculateTimeAgo";
 import useInit from "../hooks/useInit";
 import { setChat } from "../redux/chat";
 import Avatar from "./avatar";

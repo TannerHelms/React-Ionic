@@ -6,10 +6,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { FaSpinner } from "react-icons/fa";
-import HomeTile from "../../components/home_tile";
-import useDistanceBetween from "../../hooks/useDistanceBetween";
-import useInit from "../../hooks/useInit";
-
+import useDistanceBetween from "../hooks/useDistanceBetween";
+import useInit from "../hooks/useInit";
+import UserTile from "../components/user_tile";
 function Home() {
   const { user, token, navigate, dispatch } = useInit(true);
   const { userDistances } = useDistanceBetween(user);
@@ -31,7 +30,7 @@ function Home() {
             {userDistances?.map((data, idx) => {
               const { user, distance } = data;
               return (
-                <HomeTile
+                <UserTile
                   key={idx}
                   user={user}
                   distance={distance}

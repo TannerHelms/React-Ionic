@@ -1,16 +1,15 @@
 import { IonCard } from "@ionic/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useInit from "../hooks/useInit";
 import { setDetailUser } from "../redux/details";
-import Button from "./button";
 import { UserPhotos } from "./user_photos";
+import Button from "./button";
 
-function HomeTile({ user, distance, idx }) {
+function UserTile({ user, distance }) {
   const { navigate, dispatch } = useInit(true);
   const [loading, setLoading] = useState(true);
   return (
     <IonCard
-      key={idx}
       className="flex flex-col itme p-5 max-w-xl gap-3 opacity-100"
       style={{
         backgroundColor: "#C2CCBC",
@@ -39,4 +38,4 @@ function HomeTile({ user, distance, idx }) {
   );
 }
 
-export default HomeTile;
+export default UserTile;

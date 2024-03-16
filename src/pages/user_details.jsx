@@ -8,8 +8,8 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useSelector } from "react-redux";
-import { Details } from "../../components/details";
-import { getUser } from "../../redux/details";
+import { Details } from "../components/details";
+import { getUser } from "../redux/details";
 
 function HomeDetails() {
   const user = useSelector(getUser);
@@ -25,7 +25,7 @@ function HomeDetails() {
             <IonTitle>User Details</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent color="secondary">
+        <IonContent color="secondary" fullscreen>
           <Details user={user} />
         </IonContent>
       </IonPage>

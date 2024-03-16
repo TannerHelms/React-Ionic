@@ -8,13 +8,13 @@ import {
 } from "@ionic/react";
 import { airplane, home, person, chatbox } from "ionicons/icons";
 import { Redirect, Route } from "react-router-dom";
-import HomeDetails from "./user_details/user_details";
-import Messages from "./messages/messages";
-import Home from "./home/home";
+import HomeDetails from "./user_details";
+import Messages from "./messages";
+import Home from "./home";
 import useInit from "../hooks/useInit";
 import { setDetailUser } from "../redux/details";
-import Profile from "./profile/profile";
-import EditProfile from "./edit_profile/edit_profile";
+import Profile from "./profile";
+import EditProfile from "./edit_profile";
 import EditPhotos from "./edit_photos";
 import ChatDetails from "./chat_details";
 

@@ -9,14 +9,13 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { useState } from "react";
-import getUser from "../../hooks/getUser";
-import updateUserDoc from "../../hooks/updateUserDoc";
-import useAutocomplete from "../../hooks/useAutocomplete";
-import useInit from "../../hooks/useInit";
-import { setCredentials } from "../../redux/auth";
-import classes from "./edit_profile.module.css";
-import Button from "../../components/button";
-import Input from "../../components/input";
+import getUser from "../api/getUser";
+import updateUserDoc from "../api/updateUserDoc";
+import Button from "../components/button";
+import Input from "../components/input";
+import useAutocomplete from "../hooks/useAutocomplete";
+import useInit from "../hooks/useInit";
+import { setCredentials } from "../redux/auth";
 
 function EditProfile() {
   const { user, token, dispatch } = useInit(true);
@@ -39,7 +38,6 @@ function EditProfile() {
   });
 
   const handleChange = (e) => {
-    console.log("chanfge");
     if (e.target.name == "address") {
       setSearch(true);
     }
@@ -88,42 +86,42 @@ function EditProfile() {
                     name="email"
                     label="Email"
                     value={newUser.email}
-                    onChange={handleChange}
+                    onIonInput={handleChange}
                     type="email"
                   />
                   <Input
                     name="display_name"
                     label="Display Name"
                     value={newUser.display_name}
-                    onChange={handleChange}
+                    onIonInput={handleChange}
                   />
                   <Input
                     name="age"
                     label="Age"
                     value={newUser.age}
-                    onChange={handleChange}
+                    onIonInput={handleChange}
                     type="number"
                   />
                   <Input
                     name="phone_number"
                     label="Phone Number"
                     value={newUser.phone_number}
-                    onChange={handleChange}
+                    onIonInput={handleChange}
                   />
                   <div className="flex col g-10">
                     <Input
                       name="address"
                       label="Address"
                       value={newUser.address}
-                      onChange={handleChange}
+                      onIonInput={handleChange}
                     />
                     {addresses && (
-                      <div className={classes.addressContainer}>
+                      <div className="bg-white p-5 rounded-lg gap-5 max-h-56 overflow-y-auto">
                         {addresses.map((address, idx) => {
                           return (
                             <div
                               key={idx}
-                              className={`${classes.address} hover-primary br p-10`}
+                              className={`hover-primary br p-10`}
                               onClick={() => {
                                 setSearch(false);
                                 setNewUser((old) => ({
