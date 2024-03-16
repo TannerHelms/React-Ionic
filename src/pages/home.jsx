@@ -16,7 +16,6 @@ function Home() {
   const [loadingCounter, setLoadingCounter] = useState(0);
 
   useEffect(() => {
-    console.log(loadingCounter);
     if (loadingCounter == userDistances?.length) {
       setLoadingCounter(null);
     }

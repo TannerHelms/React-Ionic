@@ -13,9 +13,11 @@ import { FaCamera, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Details } from "../components/details";
 import SettingTile from "../components/setting_tile";
 import useInit from "../hooks/useInit";
+import { useState } from "react";
 
 function Profile() {
   const { user, navigate } = useInit(true);
+  const [loading, setLoading] = useState(true);
 
   const body = (
     <>
@@ -65,7 +67,7 @@ function Profile() {
         {/* This is the Page Content */}
         <IonContent color="secondary">
           <div className="flex flex-col w-full items-center">
-            <Details user={user} />
+            <Details user={user} onLoad={() => setLoading(false)} />
           </div>
         </IonContent>
       </IonPage>

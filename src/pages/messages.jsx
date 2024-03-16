@@ -10,7 +10,6 @@ import { FaSpinner } from "react-icons/fa";
 import ChatTile from "../components/chat_tile";
 import useCollection from "../hooks/useCollection";
 import useInit from "../hooks/useInit";
-import { setChat } from "../redux/chat";
 
 function Messages() {
   const { user, navigate, dispatch } = useInit(true);
@@ -53,6 +52,7 @@ function Messages() {
                     user={user}
                     chat={chat}
                     onLoad={handleLoad}
+                    className="load:"
                   />
                 );
               })}

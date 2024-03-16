@@ -17,7 +17,7 @@ function UserTile({ user, distance, onLoad }) {
 
   return (
     <IonCard
-      className="flex flex-col itme p-5 max-w-xl gap-3 opacity-100"
+      className="flex flex-col itme p-5 max-w-xl gap-3 opacity-100 fade-in"
       style={{
         backgroundColor: "#C2CCBC",
         display: loading ? "none" : "flex",

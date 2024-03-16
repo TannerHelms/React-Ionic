@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UserPhotos } from "./user_photos";
 import HouseRule from "./house_rule";
 
-export function Details({ user }) {
+export function Details({ user, onLoad }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (loading) {
+      onLoad();
+    }
+  }, [onLoad]);
+
   return (
     // Overall container
 
-    <div className="max-w-lg h-100">
+    <div className={`max-w-lg h-100 ${loading ? "hidden" : "block"}`}>
       {/* Container for Photos and details*/}
       <div className="flex col g-20 p-5">
-        <UserPhotos user={user} />
+        <UserPhotos user={user} onLoad={() => setLoading(false)} />
         {/* User Info */}
         <h2 className="black center">{user.display_name}</h2>
         <div className="flex row between w-100 black">
