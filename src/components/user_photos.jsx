@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "./avatar";
+import useLoading from "../hooks/useLoading";
 export function UserPhotos({ user, size = "140", onLoad }) {
-  const [loadingCover, setLoadingCover] = useState(true);
-  const [loadingAvatar, setLoadingAvatar] = useState(true);
-
-  useEffect(() => {
-    if (onLoad && !loadingCover && !loadingAvatar) {
-      onLoad();
-    }
-  }, [loadingCover, loadingAvatar]);
-
+  const { load } = useLoading(2, { onLoad });
   return (
     <>
       <div className="relative">
@@ -17,9 +10,7 @@ export function UserPhotos({ user, size = "140", onLoad }) {
           className="rounded-lg aspect-square object-cover"
           src={user.photo_background}
           alt=""
-          onLoad={() => {
-            setLoadingCover(false);
-          }}
+          onLoad={load}
         />
         <div
           className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
@@ -29,9 +20,7 @@ export function UserPhotos({ user, size = "140", onLoad }) {
             src={user.photo_url}
             alt="photo"
             size={`${size}px`}
-            onLoad={() => {
-              setLoadingAvatar(false);
-            }}
+            onLoad={load}
           />
         </div>
       </div>

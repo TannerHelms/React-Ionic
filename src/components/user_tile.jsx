@@ -7,23 +7,13 @@ import Button from "./button";
 
 function UserTile({ user, distance, onLoad }) {
   const { navigate, dispatch } = useInit(true);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (loading) {
-      onLoad();
-    }
-  }, [loading]);
 
   return (
     <IonCard
       className="flex flex-col itme p-5 max-w-xl gap-3 opacity-100 fade-in"
-      style={{
-        backgroundColor: "#C2CCBC",
-        display: loading ? "none" : "flex",
-      }}
+      style={{ backgroundColor: "#C2CCBC" }}
     >
-      <UserPhotos user={user} onLoad={() => setLoading(false)} />
+      <UserPhotos user={user} onLoad={onLoad} />
       {/* User Info */}
       <div className="flex row between w-100 black mt-3">
         <p>{user.display_name}</p>

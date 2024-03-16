@@ -5,12 +5,6 @@ import HouseRule from "./house_rule";
 export function Details({ user, onLoad }) {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (loading) {
-      onLoad();
-    }
-  }, [onLoad]);
-
   return (
     // Overall container
 

@@ -5,21 +5,16 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { FaSpinner } from "react-icons/fa";
+import UserTile from "../components/user_tile";
 import useDistanceBetween from "../hooks/useDistanceBetween";
 import useInit from "../hooks/useInit";
-import UserTile from "../components/user_tile";
-import { useEffect, useState } from "react";
+import useLoading from "../hooks/useLoading";
 function Home() {
   const { user, dispatch } = useInit(true);
   const { userDistances } = useDistanceBetween(user);
-  const [loadingCounter, setLoadingCounter] = useState(0);
-
-  useEffect(() => {
-    if (loadingCounter == userDistances?.length) {
-      setLoadingCounter(null);
-    }
-  }, [loadingCounter]);
+  const { loadClass, load, Spinner } = useLoading(userDistances?.length, {
+    size: "32px",
+  });
 
   const body = (
     <>
@@ -31,29 +26,23 @@ function Home() {
         </IonHeader>
 
         <IonContent fullscreen>
-          <div
-            className={`flex flex-col items-center ${
-              loadingCounter ? "hidden" : ""
-            }`}
-          >
-            {userDistances?.map((data, idx) => {
-              const { user, distance } = data;
-              return (
-                <UserTile
-                  key={idx}
-                  user={user}
-                  distance={distance}
-                  dispatch={dispatch}
-                  onLoad={() => {
-                    setLoadingCounter((old) => old + 1);
-                  }}
-                />
-              );
-            })}
+          <div className={loadClass}>
+            <div className="flex flex-col w-full items-center">
+              {userDistances?.map((data, idx) => {
+                const { user, distance } = data;
+                return (
+                  <UserTile
+                    key={idx}
+                    user={user}
+                    distance={distance}
+                    dispatch={dispatch}
+                    onLoad={load}
+                  />
+                );
+              })}
+            </div>
           </div>
-          {loadingCounter != null && (
-            <FaSpinner className="spin flex w-full items-center" size="50px" />
-          )}
+          {Spinner}
         </IonContent>
       </IonPage>
     </>
