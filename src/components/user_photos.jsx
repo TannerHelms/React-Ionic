@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Avatar from "./avatar";
 import useLoading from "../hooks/useLoading";
 export function UserPhotos({ user, size = "140", onLoad }) {
-  const { load } = useLoading(2, { onLoad });
+  const { load } = useLoading(2, { size: "32px" });
   return (
     <>
       <div className="relative">

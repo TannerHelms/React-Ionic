@@ -1,4 +1,5 @@
 import { IonAvatar } from "@ionic/react";
+import { useEffect, useState } from "react";
 
 function Avatar({ src, size = "64px", alt, circle = true, onLoad }) {
   return (
@@ -7,7 +8,11 @@ function Avatar({ src, size = "64px", alt, circle = true, onLoad }) {
         src={src}
         alt={alt}
         style={{ width: size, height: size }}
-        onLoad={onLoad}
+        onLoad={() => {
+          if (onLoad) {
+            onLoad();
+          }
+        }}
       />
     </IonAvatar>
   );

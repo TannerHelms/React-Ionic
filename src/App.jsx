@@ -22,9 +22,10 @@ import "@ionic/react/css/text-transformation.css";
 import "./theme/variables.css";
 
 /* Pages */
-import Tabs from "./pages/tabs";
-import LogIn from "./pages/log_in";
 import ChatDetails from "./pages/chat_details";
+import LogIn from "./pages/log_in";
+import Tabs from "./pages/tabs";
+import UserDetails from "./pages/user_details";
 
 setupIonicReact();
 
@@ -36,6 +37,7 @@ const App = () => (
         <Route exact path="/login" component={LogIn} />
         <Route path="/app" component={Tabs} />
         <Route path="/chat/details" component={ChatDetails} />
+        <Route path="/user/details" component={UserDetails} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

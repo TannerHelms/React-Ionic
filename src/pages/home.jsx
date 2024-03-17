@@ -17,35 +17,33 @@ function Home() {
   });
 
   const body = (
-    <>
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Home</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Home</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-        <IonContent fullscreen>
-          <div className={loadClass}>
-            <div className="flex flex-col w-full items-center">
-              {userDistances?.map((data, idx) => {
-                const { user, distance } = data;
-                return (
-                  <UserTile
-                    key={idx}
-                    user={user}
-                    distance={distance}
-                    dispatch={dispatch}
-                    onLoad={load}
-                  />
-                );
-              })}
-            </div>
+      <IonContent fullscreen>
+        <div className={loadClass}>
+          <div className="flex flex-col w-full items-center">
+            {userDistances?.map((data, idx) => {
+              const { user, distance } = data;
+              return (
+                <UserTile
+                  key={idx}
+                  user={user}
+                  distance={distance}
+                  dispatch={dispatch}
+                  onLoad={load}
+                />
+              );
+            })}
           </div>
-          {Spinner}
-        </IonContent>
-      </IonPage>
-    </>
+        </div>
+        {Spinner}
+      </IonContent>
+    </IonPage>
   );
   return user ? body : null;
 }

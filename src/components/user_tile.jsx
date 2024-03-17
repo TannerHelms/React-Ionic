@@ -28,7 +28,7 @@ function UserTile({ user, distance, onLoad }) {
         onClick={() => {
           delete user.created_time;
           dispatch(setDetailUser({ user }));
-          navigate.push("/app/home/details");
+          navigate.push("/user/details");
         }}
       />
     </IonCard>

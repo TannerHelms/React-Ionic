@@ -8,7 +8,7 @@ import {
 } from "@ionic/react";
 import { airplane, home, person, chatbox } from "ionicons/icons";
 import { Redirect, Route } from "react-router-dom";
-import HomeDetails from "./user_details";
+import UserDetails from "./user_details";
 import Messages from "./messages";
 import Home from "./home";
 import useInit from "../hooks/useInit";
@@ -28,7 +28,6 @@ function Tabs() {
           <Redirect to="/app/home" />
         </Route>
         <Route exact path="/app/home" component={Home} />
-        <Route path="/app/home/details" component={HomeDetails} />
         <Route exact path="/app/messages" component={Messages} />
         <Route exact path="/app/profile" component={Profile} />
         <Route exact path="/app/editProfile" component={EditProfile} />

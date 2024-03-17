@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
-function useLoading(ct = 0, { size = "32px", onLoad }) {
+function useLoading(ct = 0, { size = "32px", onLoad, buffer = 2000 }) {
   const [loadCounter, setLoadingCounter] = useState(0);
   const loadClass = loadCounter != null ? "hidden" : "";
   const spinClass =
-    loadCounter != null ? "flex justify-center w-full spin" : "hidden";
-  const Spinner = <FaSpinner className={spinClass} size={size} />;
+    loadCounter != null ? "flex justify-center w-full" : "hidden";
+  const Spinner = <FaSpinner className={`${spinClass} spin`} size={"32px"} />;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoadingCounter(null);
+    }, buffer);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const load = () => {
     if (loadCounter == null) return;
@@ -20,7 +27,7 @@ function useLoading(ct = 0, { size = "32px", onLoad }) {
       setLoadingCounter(loadCounter + 1);
     }
   };
-  return { loadClass, load, Spinner };
+  return { spinClass, loadClass, load, Spinner };
 }
 
 export default useLoading;

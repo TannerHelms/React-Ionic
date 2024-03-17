@@ -5,18 +5,12 @@ import calculateTimeAgo from "../api/calculateTimeAgo";
 import useInit from "../hooks/useInit";
 import { setChat } from "../redux/chat";
 import Avatar from "./avatar";
+import useLoading from "../hooks/useLoading";
 
 function ChatTile({ user, chat, onLoad }) {
   const { dispatch, navigate } = useInit(true);
   const [toUser, setToUser] = useState(null);
   const [timeAgo, setTimeAgo] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (loading) {
-      onLoad();
-    }
-  }, [loading]);
 
   useEffect(() => {
     const setData = async () => {
@@ -33,44 +27,42 @@ function ChatTile({ user, chat, onLoad }) {
     setData();
   }, [chat]);
 
-  return (
-    toUser && (
-      <div
-        className="flex flex-row items-center justify-between w-full cursor-pointer border-b-2"
-        onClick={() => {
-          const newUser = toUser;
-          delete newUser.created_time;
-          dispatch(
-            setChat({
-              chatId: chat.chat_group_id,
-              user: toUser,
-              chatUid: chat.id,
-            })
-          );
-          navigate.push("/chat/details");
-        }}
-      >
-        <div className="flex flex-row gap-4 items-center">
-          <Avatar
-            src={toUser.photo_url}
-            alt="Profile"
-            size="64px"
-            onLoad={() => {
-              setLoading(false);
-            }}
-          />
-          <div className="flex flex-col">
-            <h2 className="text-xl">{toUser.display_name}</h2>
-            <p className="label">{chat.last_message}</p>
-            {timeAgo && <p className="label">{timeAgo}</p>}
-          </div>
-        </div>
-        <div>
-          <FaArrowRight />
+  const body = (
+    <div
+      className="flex flex-row items-center justify-between w-full cursor-pointer border-b-2"
+      onClick={() => {
+        const newUser = toUser;
+        delete newUser.created_time;
+        dispatch(
+          setChat({
+            chatId: chat.chat_group_id,
+            user: toUser,
+            chatUid: chat.id,
+          })
+        );
+        navigate.push("/chat/details");
+      }}
+    >
+      <div className="flex flex-row gap-4 items-center">
+        <Avatar
+          src={toUser?.photo_url}
+          alt="Profile"
+          size="64px"
+          onLoad={onLoad}
+        />
+        <div className="flex flex-col">
+          <h2 className="text-xl">{toUser?.display_name}</h2>
+          <p className="label">{chat.last_message}</p>
+          {timeAgo && <p className="label">{timeAgo}</p>}
         </div>
       </div>
-    )
+      <div>
+        <FaArrowRight />
+      </div>
+    </div>
   );
+
+  return toUser ? body : null;
 }
 
 export default ChatTile;
