@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { UserPhotos } from "./user_photos";
+import React from "react";
 import HouseRule from "./house_rule";
-import useLoading from "../hooks/useLoading";
+import { UserPhotos } from "./user_photos";
 
 export function Details({ user }) {
   return (

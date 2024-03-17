@@ -13,8 +13,8 @@ function Home() {
   const { user, dispatch } = useInit(true);
   const { userDistances } = useDistanceBetween(user);
 
-  return (
-    <>
+  const body = (
+    <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle class="ion-text-center">Home</IonTitle>
@@ -36,8 +36,9 @@ function Home() {
         </div>
         <Spinner state={!userDistances} />
       </IonContent>
-    </>
+    </IonPage>
   );
+  return user ? body : null;
 }
 
 export default Home;
