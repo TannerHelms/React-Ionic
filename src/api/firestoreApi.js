@@ -1,9 +1,8 @@
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { db } from "../config/firebase-config";
-import { v4 as uuidv4 } from "uuid";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
+import { db } from "../config/firebase-config";
 import { setCredentials } from "../redux/auth";
-import { useDispatch } from "react-redux";
 
 
 class FirestoreApi {
@@ -40,6 +39,12 @@ class FirestoreApi {
         const collection = await this.getCollection("chat_messages");
         const messages = collection.filter(message => message.chat_id === chatId);
         return messages.sort((a, b) => a.timestamp - b.timestamp);
+    }
+
+    static async getChats(userId) {
+        const collection = await this.getCollection("chats");
+        const chats = collection.filter(chat => chat.user_a_id === userId || chat.user_b_id === userId);
+        return chats.sort((a, b) => a.timestamp - b.timestamp);
     }
 
     // Get a user 

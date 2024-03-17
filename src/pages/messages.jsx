@@ -6,13 +6,13 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import ChatTile from "../components/chat_tile";
-import useCollection from "../hooks/useCollection";
+import useGetChats from "../hooks/useGetChats";
 import useInit from "../hooks/useInit";
 import useLoading from "../hooks/useLoading";
 
 function Messages() {
   const { user, navigate, dispatch } = useInit(true);
-  const { data: chats } = useCollection("chats");
+  const chats = useGetChats(user?.uid);
   const { loadClass, Spinner, load } = useLoading(chats?.length, {
     size: "50px",
   });
