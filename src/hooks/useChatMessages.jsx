@@ -11,13 +11,12 @@ const useChatMesages = () => {
   useEffect(() => {
     const fetchData = async () => {
       const newData = [];
-      const chatRef = await getDoc(doc(db, "chats", chatUid));
-      const chat = chatRef.data().chat_group_id;
       const querySnapshot = await getDocs(collection(db, "chat_messages"));
-
       await Promise.all(
         querySnapshot.docs.map(async (doc) => {
-          if (chat === chatId) {
+          const chatRef = await getDoc(doc.data().chat);
+          const chatRefData = chatRef.data();
+          if (chatRefData.chat_group_id === chatId) {
             newData.push(doc.data());
           }
         })
