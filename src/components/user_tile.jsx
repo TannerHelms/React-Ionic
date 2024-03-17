@@ -4,7 +4,7 @@ import { setDetailUser } from "../redux/details";
 import Button from "./button";
 import { UserPhotos } from "./user_photos";
 
-function UserTile({ user, distance, onLoad }) {
+function UserTile({ user, distance }) {
   const { navigate, dispatch } = useInit(true);
 
   return (
@@ -12,7 +12,7 @@ function UserTile({ user, distance, onLoad }) {
       className="flex flex-col itme p-5 max-w-xl gap-3 opacity-100 fade-in"
       style={{ backgroundColor: "#C2CCBC" }}
     >
-      <UserPhotos user={user} onLoad={onLoad} />
+      <UserPhotos user={user} />
       {/* User Info */}
       <div className="flex row between w-100 black mt-3">
         <p>{user.display_name}</p>

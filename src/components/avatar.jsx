@@ -1,18 +1,14 @@
 import { IonAvatar } from "@ionic/react";
-import { useEffect, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function Avatar({ src, size = "64px", alt, circle = true, onLoad }) {
+function Avatar({ src, placeholder = "", size = "64px", alt }) {
   return (
     <IonAvatar style={{ width: size, height: size }}>
       <img
         src={src}
+        placeholderSrc={placeholder}
         alt={alt}
         style={{ width: size, height: size }}
-        onLoad={() => {
-          if (onLoad) {
-            onLoad();
-          }
-        }}
       />
     </IonAvatar>
   );

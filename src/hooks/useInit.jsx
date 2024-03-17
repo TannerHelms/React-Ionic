@@ -1,7 +1,7 @@
 import { useIonRouter } from "@ionic/react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentToken, selectCurrentUser } from "../redux/auth";
-import { useEffect, useState } from "react";
 
 import { useHistory } from "react-router-dom";
 function useInit({ auth = true }) {
