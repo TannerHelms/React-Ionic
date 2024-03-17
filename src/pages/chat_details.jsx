@@ -9,6 +9,7 @@ import {
   IonInput,
   IonItem,
   IonPage,
+  IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import { addCircleOutline, send } from "ionicons/icons";
@@ -20,6 +21,7 @@ import useChatMesages from "../hooks/useChatMessages";
 import useCreateMessage from "../hooks/useCreateMessage";
 import useInit from "../hooks/useInit";
 import { selectChatId, selectUser } from "../redux/chat";
+import LoadProfileImage from "../components/load_profile_image";
 function ChatDetails() {
   const { user } = useInit(true);
   const userB = useSelector(selectUser);
@@ -61,7 +63,7 @@ function ChatDetails() {
             <IonBackButton defaultHref="/app/messages"></IonBackButton>
           </IonButtons>
           <div className="flex flex-row gap-3 items-center">
-            <Avatar src={userB?.photo_url} size="40px" />
+            <Avatar src={userB?.photo_url} size="40px" alt="user" />
             <p className="text-xl">{userB?.display_name}</p>
           </div>
         </IonToolbar>
@@ -70,7 +72,7 @@ function ChatDetails() {
         {user && userB && (
           <div
             mode="bottom"
-            className={`flex flex-col p-5 overflow-y-auto fade-in`}
+            className={`flex flex-col overflow-y-auto fade-in`}
             ref={divRef}
           >
             {messages?.map((message, idx) => {

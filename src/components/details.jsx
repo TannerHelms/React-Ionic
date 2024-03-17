@@ -4,18 +4,13 @@ import HouseRule from "./house_rule";
 import useLoading from "../hooks/useLoading";
 
 export function Details({ user }) {
-  const { loadClass, load } = useLoading(1, {
-    size: "32px",
-    buffer: 500,
-  });
-
   return (
     <>
-      <div className={`${loadClass} fade-in`}>
+      <div className="fade-in">
         <div className="max-w-lg h-100">
           {/* Container for Photos and details*/}
           <div className="flex col g-20 p-5">
-            <UserPhotos user={user} onLoad={load} />
+            <UserPhotos user={user} />
             {/* User Info */}
             <h2 className="black center">{user.display_name}</h2>
             <div className="flex row between w-100 black">

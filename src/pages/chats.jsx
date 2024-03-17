@@ -8,14 +8,10 @@ import {
 import ChatTile from "../components/chat_tile";
 import useGetChats from "../hooks/useGetChats";
 import useInit from "../hooks/useInit";
-import useLoading from "../hooks/useLoading";
 
 function Chats() {
-  const { user, navigate, dispatch } = useInit(true);
+  const { user } = useInit(true);
   const chats = useGetChats(user?.uid);
-  const { loadClass, Spinner, load } = useLoading(chats?.length, {
-    size: "50px",
-  });
 
   const body = (
     <IonPage>
@@ -28,19 +24,14 @@ function Chats() {
       {/* End Header */}
       {/* Content */}
       <IonContent fullscreen>
-        <div className={loadClass}>
-          <div className="flex flex-col gap-3 p-5 items-center">
-            <div className="w-full max-w-xl flex flex-col gap-4">
-              <p>Below are your chats</p>
-              {chats?.map((chat, idx) => {
-                return (
-                  <ChatTile key={idx} user={user} chat={chat} onLoad={load} />
-                );
-              })}
-            </div>
+        <div className="flex flex-col gap-3 p-5 items-center">
+          <div className="w-full max-w-xl flex flex-col gap-4">
+            <p>Below are your chats</p>
+            {chats?.map((chat, idx) => {
+              return <ChatTile key={idx} user={user} chat={chat} />;
+            })}
           </div>
         </div>
-        {Spinner}
       </IonContent>
       {/* End Content */}
     </IonPage>

@@ -1,13 +1,12 @@
 import { getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import calculateTimeAgo from "../utils/calculateTimeAgo";
 import useInit from "../hooks/useInit";
 import { setChat } from "../redux/chat";
-import Avatar from "./avatar";
-import useLoading from "../hooks/useLoading";
+import calculateTimeAgo from "../utils/calculateTimeAgo";
+import LoadProfileImage from "./load_profile_image";
 
-function ChatTile({ user, chat, onLoad }) {
+function ChatTile({ user, chat }) {
   const { dispatch, navigate } = useInit(true);
   const [toUser, setToUser] = useState(null);
   const [timeAgo, setTimeAgo] = useState(null);
@@ -28,7 +27,7 @@ function ChatTile({ user, chat, onLoad }) {
 
   const body = (
     <div
-      className="flex flex-row items-center justify-between w-full cursor-pointer border-b-2"
+      className="flex flex-row items-center justify-between w-full cursor-pointer border-b-2 fade-in"
       onClick={() => {
         const newUser = toUser;
         delete newUser.created_time;
@@ -43,11 +42,10 @@ function ChatTile({ user, chat, onLoad }) {
       }}
     >
       <div className="flex flex-row gap-4 items-center">
-        <Avatar
+        <LoadProfileImage
           src={toUser?.photo_url}
-          alt="Profile"
-          size="64px"
-          onLoad={onLoad}
+          hashsrc={toUser?.profile_hash}
+          size={64}
         />
         <div className="flex flex-col">
           <h2 className="text-xl">{toUser?.display_name}</h2>

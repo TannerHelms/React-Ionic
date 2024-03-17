@@ -61,7 +61,6 @@ function Profile() {
             <IonTitle>Profile</IonTitle>
           </IonToolbar>
         </IonHeader>
-
         {/* This is the Page Content */}
         <IonContent color="secondary">
           <div className="flex flex-col w-full items-center">

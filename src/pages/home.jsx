@@ -12,8 +12,9 @@ import Spinner from "../components/spinner";
 function Home() {
   const { user, dispatch } = useInit(true);
   const { userDistances } = useDistanceBetween(user);
-  const body = (
-    <IonPage>
+
+  return (
+    <>
       <IonHeader>
         <IonToolbar>
           <IonTitle class="ion-text-center">Home</IonTitle>
@@ -35,9 +36,8 @@ function Home() {
         </div>
         <Spinner state={!userDistances} />
       </IonContent>
-    </IonPage>
+    </>
   );
-  return user ? body : null;
 }
 
 export default Home;

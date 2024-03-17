@@ -16,7 +16,7 @@ function LoadProfileImage({ src, hashsrc, size = 120 }) {
       <div className={loading ? "hidden" : "inline"}>
         <Avatar src={src} alt="photo" size={`${size}px`} />
       </div>
-      <div className={loading ? "inline" : "hidden"}>
+      <div className={loading ? "inline rounded  overflow-hidden" : "hidden"}>
         <Blurhash hash={hashsrc} width={size} height={size} />
       </div>
     </>
