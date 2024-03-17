@@ -26,13 +26,8 @@ class RadarApi {
             units: 'imperial'
         });
 
-        if (distance.routes) {
-            const { car, geodesic } = distance.routes;
-            const route = car?.distance?.text ? car : geodesic;
-            return { value: route.distance.value, text: route.distance.text };
-        } else {
-            return result.message;
-        }
+        const route = distance.routes?.car?.distance?.text ? distance.routes.car : distance.routes.geodesic;
+        return route ? { value: route.distance.value, text: route.distance.text } : result.message;
     }
 }
 

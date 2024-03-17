@@ -7,11 +7,10 @@ const useDistanceBetween = (user) => {
   const { data: users } = useCollection("users");
 
   const get = async () => {
-    let newDist = [];
-    await Promise.all(
+    const newDist = await Promise.all(
       users.map(async (u) => {
         const { value, text } = await RadarApi.getDistance(user, u);
-        newDist.push({ user: u, distance: text, distanceNumber: value });
+        return { user: u, distance: text, distanceNumber: value };
       })
     );
     newDist.sort((a, b) => a.distanceNumber - b.distanceNumber);

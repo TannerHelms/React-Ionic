@@ -12,9 +12,7 @@ import { UserPhotos } from "../components/user_photos";
 import useInit from "../hooks/useInit";
 function EditPhotos() {
   const { user, navigate } = useInit(true);
-  if (!user) {
-    navigate.push("/", "root", "replace");
-  }
+
   return (
     <IonPage>
       <IonHeader>

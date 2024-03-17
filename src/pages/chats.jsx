@@ -10,7 +10,7 @@ import useGetChats from "../hooks/useGetChats";
 import useInit from "../hooks/useInit";
 import useLoading from "../hooks/useLoading";
 
-function Messages() {
+function Chats() {
   const { user, navigate, dispatch } = useInit(true);
   const chats = useGetChats(user?.uid);
   const { loadClass, Spinner, load } = useLoading(chats?.length, {
@@ -48,4 +48,4 @@ function Messages() {
 
   return user ? body : null;
 }
-export default Messages;
+export default Chats;

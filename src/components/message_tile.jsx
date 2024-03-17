@@ -12,20 +12,8 @@ function MessageTile({ message }) {
     const update = async () => {
       const timeAgo = calculateTimeAgo(message.timestamp);
       setTimeAgo(timeAgo);
-      let uid = null;
-
-      if (message.user.uid) {
-        uid = message.user.uid;
-      } else {
-        const sender = await getDoc(message.user);
-        uid = sender.data().uid;
-      }
-
-      if (uid === user.uid) {
-        setSent(true);
-      } else {
-        setSent(false);
-      }
+      const uid = message.user.uid || (await getDoc(message.user)).data().uid;
+      setSent(uid === user.uid);
     };
     update();
   }, [message]);

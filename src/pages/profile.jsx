@@ -13,7 +13,6 @@ import { FaCamera, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { Details } from "../components/details";
 import SettingTile from "../components/setting_tile";
 import useInit from "../hooks/useInit";
-import { useState } from "react";
 
 function Profile() {
   const { user, navigate } = useInit(true);

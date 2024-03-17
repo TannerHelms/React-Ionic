@@ -17,12 +17,9 @@ function useLoading(ct = 0, { size = "32px", onLoad, buffer = 2000 }) {
 
   const load = () => {
     if (loadCounter == null) return;
-
     if (loadCounter + 1 === ct) {
       setLoadingCounter(null);
-      if (onLoad) {
-        onLoad();
-      }
+      onLoad && onLoad();
     } else {
       setLoadingCounter(loadCounter + 1);
     }

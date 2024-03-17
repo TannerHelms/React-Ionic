@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import { db } from "../config/firebase-config";
 import { setCredentials } from "../redux/auth";
 
-
 class FirestoreApi {
     // Creates a new message in the firestore database and update the last message in the chat
     static createMessage(chatId, user, message) {
@@ -41,6 +40,7 @@ class FirestoreApi {
         return messages.sort((a, b) => a.timestamp - b.timestamp);
     }
 
+    // Get all the chats for a user
     static async getChats(userId) {
         const collection = await this.getCollection("chats");
         const chats = collection.filter(chat => chat.user_a_id === userId || chat.user_b_id === userId);

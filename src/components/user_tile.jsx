@@ -1,9 +1,8 @@
 import { IonCard } from "@ionic/react";
-import { useEffect, useState } from "react";
 import useInit from "../hooks/useInit";
 import { setDetailUser } from "../redux/details";
-import { UserPhotos } from "./user_photos";
 import Button from "./button";
+import { UserPhotos } from "./user_photos";
 
 function UserTile({ user, distance, onLoad }) {
   const { navigate, dispatch } = useInit(true);

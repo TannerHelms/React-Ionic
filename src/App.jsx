@@ -23,7 +23,7 @@ import "./theme/variables.css";
 
 /* Pages */
 import ChatDetails from "./pages/chat_details";
-import LogIn from "./pages/log_in";
+import LogIn from "./pages/login";
 import Tabs from "./pages/tabs";
 import UserDetails from "./pages/user_details";
 

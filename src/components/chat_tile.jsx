@@ -17,10 +17,9 @@ function ChatTile({ user, chat, onLoad }) {
       chat.users.forEach(async (u) => {
         const docRef = await getDoc(u);
         const data = docRef.data();
-        if (data.uid != user?.uid) {
+        if (data.uid !== user?.uid) {
           setToUser(data);
-          const timeAgo = calculateTimeAgo(chat.last_message_time);
-          setTimeAgo(timeAgo);
+          setTimeAgo(calculateTimeAgo(chat.last_message_time));
         }
       });
     };

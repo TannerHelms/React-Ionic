@@ -9,15 +9,12 @@ const useAutocomplete = ({ user, query, search }) => {
     if (!search) {
       setAddresses(false);
     }
-    const delayDebounceFn = setTimeout(() => {
+    const delayDebounceFn = setTimeout(async () => {
       if (search && user && query) {
-        const get = async () => {
-          const resp = await RadarApi.autoComplete(query, user);
-          if (resp.addresses) {
-            setAddresses(resp.addresses);
-          }
-        };
-        get();
+        const resp = await RadarApi.autoComplete(query, user);
+        if (resp.addresses) {
+          setAddresses(resp.addresses);
+        }
       }
     }, 500);
     return () => clearTimeout(delayDebounceFn);
