@@ -364,3 +364,7 @@ input:-webkit-autofill:active {
     opacity: 1;
   }
 }
+
+.color-background {
+  background-color: #eef2f3;
+}

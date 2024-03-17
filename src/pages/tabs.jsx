@@ -17,7 +17,7 @@ import Profile from "./profile";
 
 function Tabs() {
   return (
-    <IonTabs>
+    <IonTabs className="contents">
       <IonRouterOutlet>
         {/* Set the Paths for Child Elements */}
         <Route exact path="/app">

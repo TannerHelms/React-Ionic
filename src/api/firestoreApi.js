@@ -44,7 +44,7 @@ class FirestoreApi {
     static async getChats(userId) {
         const collection = await this.getCollection("chats");
         const chats = collection.filter(chat => chat.user_a_id === userId || chat.user_b_id === userId);
-        return chats.sort((a, b) => a.timestamp - b.timestamp);
+        return chats.sort((a, b) => b.last_message_time - a.last_message_time);
     }
 
     // Get a user 

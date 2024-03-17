@@ -20,7 +20,7 @@ function MessageTile({ message }) {
 
   const body = (
     <>
-      <div className={`flex flex-col gap-2 p-5 4 `}>
+      <div className={`flex flex-col gap-1 p-3 4 `}>
         <div className={`flex flex-col ${sent ? "ml-auto" : ""}`}>
           {timeAgo && <p className="label">{timeAgo}</p>}
         </div>

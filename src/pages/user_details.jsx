@@ -23,7 +23,7 @@ function UserDetails() {
 
   const handleCreateMessage = async () => {
     await FirestoreApi.createChat(currUser.uid, user.uid);
-    navigate.push("/app/messages", "root", "replace");
+    navigate.push("/app/chats", "root", "replace");
   };
 
   return (
