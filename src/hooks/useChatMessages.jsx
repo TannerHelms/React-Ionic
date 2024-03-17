@@ -14,10 +14,9 @@ const useChatMesages = () => {
       const querySnapshot = await getDocs(collection(db, "chat_messages"));
       await Promise.all(
         querySnapshot.docs.map(async (doc) => {
-          const chatRef = await getDoc(doc.data().chat);
-          const chatRefData = chatRef.data();
-          if (chatRefData.chat_group_id === chatId) {
-            newData.push(doc.data());
+          const docData = doc.data();
+          if (docData.chat_id == chatUid) {
+            newData.push(docData);
           }
         })
       );

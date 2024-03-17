@@ -1,14 +1,7 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
-import useCollection from "./useCollection";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../config/firebase-config";
 import { v4 as uuidv4 } from "uuid";
+import { db } from "../config/firebase-config";
 // Function to create a new message in Firestore
 function useCreateMessage({ user, message, chatId, send, setState }) {
   const [resp, setResp] = useState({ message: "" });
@@ -24,6 +17,12 @@ function useCreateMessage({ user, message, chatId, send, setState }) {
         text: message,
         timestamp,
         user: doc(db, "users", user.uid),
+        chat_id: chatId,
+      });
+      console.log(chatId);
+      await updateDoc(doc(db, "chats", chatId), {
+        last_message: message,
+        last_message_time: timestamp,
       });
       setState("");
       setResp({ message: "created message" });
