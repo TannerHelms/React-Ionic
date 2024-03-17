@@ -2,12 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { IonContent, IonPage } from "@ionic/react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import handleSignIn from "../utils/handleSignIn";
+import FirestoreApi from "../api/firestoreApi";
 import Avatar from "../components/avatar";
 import Button from "../components/button";
 import Input from "../components/input";
 import useInit from "../hooks/useInit";
-import { setCredentials } from "../redux/auth";
 
 const schema = z.object({
   email: z
@@ -35,14 +34,13 @@ function LogIn() {
   });
 
   const onSubmit = async (data) => {
-    const { user, token, error } = await handleSignIn(data);
-    if (error) {
+    try {
+      await FirestoreApi.signIn(dispatch, data.email, data.password);
+      navigate.push("/app", "root", "replace");
+    } catch (error) {
       setError("root", {
         message: "Invalid Credentials",
       });
-    } else {
-      dispatch(setCredentials({ user, token }));
-      navigate.push("/app", "root", "replace");
     }
   };
 

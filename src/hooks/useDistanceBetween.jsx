@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import RadarApi from "../api/radarApi";
 import useCollection from "./useCollection";
-import getDistance from "../utils/getDistance";
 
 const useDistanceBetween = (user) => {
   const [userDistances, setUserDistances] = useState(null);
@@ -10,12 +10,7 @@ const useDistanceBetween = (user) => {
     let newDist = [];
     await Promise.all(
       users.map(async (u) => {
-        const { value, text } = await getDistance(
-          user.latitude,
-          user.longitude,
-          u.latitude,
-          u.longitude
-        );
+        const { value, text } = await RadarApi.getDistance(user, u);
         newDist.push({ user: u, distance: text, distanceNumber: value });
       })
     );

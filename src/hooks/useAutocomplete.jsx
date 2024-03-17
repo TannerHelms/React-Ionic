@@ -1,5 +1,6 @@
 import Radar from "radar-sdk-js";
 import { useEffect, useState } from "react";
+import RadarApi from "../api/radarApi";
 
 const useAutocomplete = ({ user, query, search }) => {
   const [addresses, setAddresses] = useState(null);
@@ -11,14 +12,7 @@ const useAutocomplete = ({ user, query, search }) => {
     const delayDebounceFn = setTimeout(() => {
       if (search && user && query) {
         const get = async () => {
-          const resp = await Radar.autocomplete({
-            query: query,
-            near: {
-              longitude: user.longitude,
-              latitude: user.latitude,
-            },
-            limit: 10,
-          });
+          const resp = await RadarApi.autoComplete(query, user);
           if (resp.addresses) {
             setAddresses(resp.addresses);
           }

@@ -1,15 +1,18 @@
 import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { v4 as uuidv4 } from "uuid";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { setCredentials } from "../redux/auth";
+import { useDispatch } from "react-redux";
 
 
 class FirestoreApi {
     // Creates a new message in the firestore database and update the last message in the chat
-    static async createMessage(chatId, user, message) {
+    static createMessage(chatId, user, message) {
         const docId = uuidv4().replace(/-/g, "");
         const timestamp = serverTimestamp();
 
-        await setDoc(doc(db, "chat_messages", docId), {
+        setDoc(doc(db, "chat_messages", docId), {
             id: docId,
             chat: doc(db, "chats", chatId),
             text: message,
@@ -20,7 +23,7 @@ class FirestoreApi {
         });
 
 
-        await updateDoc(doc(db, "chats", chatId), {
+        updateDoc(doc(db, "chats", chatId), {
             last_message: message,
             last_message_time: timestamp,
         });
@@ -48,18 +51,18 @@ class FirestoreApi {
     }
 
     // update a user 
-    static async updateUser(id, data) {
-        await updateDoc(doc(db, "users", id), {
+    static updateUser(id, data) {
+        updateDoc(doc(db, "users", id), {
             ...data
         });
     }
 
     // Create a chat between 2 users
-    static async createChat(usera, userb) {
+    static createChat(usera, userb) {
         const newUuid = usera + userb;
         const timestamp = serverTimestamp();
 
-        await setDoc(doc(db, "chats", newUuid), {
+        setDoc(doc(db, "chats", newUuid), {
             id: newUuid,
             user_a: doc(db, "users", usera),
             user_a_id: usera,
@@ -70,6 +73,15 @@ class FirestoreApi {
             last_message_time: timestamp,
             timestamp,
         });
+    }
+
+    // Sign in a user
+    static async signIn(dispatch, email, password) {
+        const userCredential = await signInWithEmailAndPassword(getAuth(), email, password);
+        const { uid } = userCredential.user;
+        const token = userCredential._tokenResponse.refreshToken;
+        const user = await FirestoreApi.getUser(uid);
+        dispatch(setCredentials({ user, token }));
     }
 }
 
