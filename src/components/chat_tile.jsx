@@ -1,7 +1,7 @@
 import { getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import calculateTimeAgo from "../api/calculateTimeAgo";
+import calculateTimeAgo from "../utils/calculateTimeAgo";
 import useInit from "../hooks/useInit";
 import { setChat } from "../redux/chat";
 import Avatar from "./avatar";
@@ -35,7 +35,7 @@ function ChatTile({ user, chat, onLoad }) {
         delete newUser.created_time;
         dispatch(
           setChat({
-            chatId: chat.chat_group_id,
+            chatId: chat.id,
             user: toUser,
             chatUid: chat.id,
           })

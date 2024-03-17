@@ -1,6 +1,6 @@
 import Radar from 'radar-sdk-js';
 
-export async function getDistance(oLat, oLong, dLat, dLong) {
+async function getDistance(oLat, oLong, dLat, dLong) {
     const distance = await Radar.distance({
         origin: {
             latitude: oLat,
@@ -27,3 +27,5 @@ export async function getDistance(oLat, oLong, dLat, dLong) {
         return result.message
     }
 }
+
+export default getDistance;

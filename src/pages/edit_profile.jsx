@@ -9,8 +9,7 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { useState } from "react";
-import getUser from "../api/getUser";
-import updateUserDoc from "../api/updateUserDoc";
+import FirestoreApi from "../api/firestoreApi";
 import Button from "../components/button";
 import Input from "../components/input";
 import useAutocomplete from "../hooks/useAutocomplete";
@@ -48,9 +47,9 @@ function EditProfile() {
   };
 
   const handleUpdate = async () => {
-    const resp = await updateUserDoc(user.uid, newUser);
+    const resp = await FirestoreApi.updateUser(user.uid, newUser);
     if (!resp) {
-      const updatedUser = await getUser(user.uid);
+      const updatedUser = await FirestoreApi.getUser(user.uid);
       delete updatedUser.created_time;
       dispatch(setCredentials({ user: updatedUser, token: token }));
       presentToast("top");

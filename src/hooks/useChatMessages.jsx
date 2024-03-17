@@ -1,33 +1,20 @@
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../config/firebase-config";
 import { useSelector } from "react-redux";
-import { selectChatId, selectChatUid } from "../redux/chat";
+import FirestoreApi from "../api/firestoreApi";
+import { selectChatId } from "../redux/chat";
 
 const useChatMesages = () => {
   const [data, setData] = useState(null);
   const chatId = useSelector(selectChatId);
-  const chatUid = useSelector(selectChatUid);
   useEffect(() => {
     const fetchData = async () => {
-      const newData = [];
-      const querySnapshot = await getDocs(collection(db, "chat_messages"));
-      await Promise.all(
-        querySnapshot.docs.map(async (doc) => {
-          const docData = doc.data();
-          if (docData.chat_id == chatUid) {
-            newData.push(docData);
-          }
-        })
-      );
-
-      newData.sort((a, b) => a.timestamp - b.timestamp);
-      setData(newData);
+      const data = await FirestoreApi.getMessages(chatId);
+      setData(data);
     };
-    if (chatId && chatUid) {
+    if (chatId) {
       fetchData();
     }
-  }, [chatId, chatUid]);
+  }, [chatId]);
 
   return { data, setData };
 };

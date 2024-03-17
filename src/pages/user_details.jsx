@@ -10,24 +10,20 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import { chatbox } from "ionicons/icons";
 import { useSelector } from "react-redux";
+import FirestoreApi from "../api/firestoreApi";
 import { Details } from "../components/details";
-import { getUser } from "../redux/details";
 import useInit from "../hooks/useInit";
-import { bluetooth, chatbox } from "ionicons/icons";
-import CreateChat from "../api/createChat";
+import { getUser } from "../redux/details";
 
 function UserDetails() {
   const { user: currUser, navigate } = useInit(true);
   const user = useSelector(getUser);
 
   const handleCreateMessage = async () => {
-    const resp = await CreateChat(currUser.uid, user.uid);
-    if (resp.success) {
-      navigate.push("/app/messages", "root", "replace");
-    } else {
-      console.log(resp.error);
-    }
+    await FirestoreApi.createChat(currUser.uid, user.uid);
+    navigate.push("/app/messages", "root", "replace");
   };
 
   return (

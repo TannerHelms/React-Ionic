@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getDistance } from "../api/getDistance";
 import useCollection from "./useCollection";
+import getDistance from "../utils/getDistance";
 
 const useDistanceBetween = (user) => {
   const [userDistances, setUserDistances] = useState(null);

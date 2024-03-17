@@ -19,18 +19,18 @@ import MessageTile from "../components/message_tile";
 import useChatMesages from "../hooks/useChatMessages";
 import useCreateMessage from "../hooks/useCreateMessage";
 import useInit from "../hooks/useInit";
-import { selectChatUid, selectUser } from "../redux/chat";
+import { selectChatId, selectUser } from "../redux/chat";
 function ChatDetails() {
   const { user } = useInit(true);
   const userB = useSelector(selectUser);
-  const chatUid = useSelector(selectChatUid);
+  const chatId = useSelector(selectChatId);
   const { data: messages, setData } = useChatMesages();
   const [newMessage, setNewMessage] = useState("");
   const [create, setCreate] = useState(false);
   const { resp } = useCreateMessage({
     user,
     message: newMessage,
-    chatId: chatUid,
+    chatId,
     send: create,
     setState: setNewMessage,
   });

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import calculateTimeAgo from "../api/calculateTimeAgo";
+import calculateTimeAgo from "../utils/calculateTimeAgo";
 import { getDoc } from "firebase/firestore";
 import useInit from "../hooks/useInit";
 

@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IonButton, IonContent, IonInput, IonPage } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import handleSignIn from "../api/handleSignIn";
+import handleSignIn from "../utils/handleSignIn";
 import Avatar from "../components/avatar";
-import useInit from "../hooks/useInit";
-import { setCredentials } from "../redux/auth";
 import Button from "../components/button";
 import Input from "../components/input";
+import useInit from "../hooks/useInit";
+import { setCredentials } from "../redux/auth";
 
 const schema = z.object({
   email: z

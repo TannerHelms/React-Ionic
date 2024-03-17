@@ -9,10 +9,9 @@ const chatSlice = createSlice({
     },
     reducers: {
         setChat: (state, action) => {
-            const { chatId, user, chatUid } = action.payload;
+            const { chatId, user } = action.payload;
             state.chatId = chatId;
             state.user = user;
-            state.chatUid = chatUid;
         },
 
     },
@@ -24,4 +23,3 @@ export default chatSlice.reducer;
 
 export const selectChatId = (state) => state.chat.chatId;
 export const selectUser = (state) => state.chat.user;
-export const selectChatUid = (state) => state.chat.chatUid;

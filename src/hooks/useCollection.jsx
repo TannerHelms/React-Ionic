@@ -1,20 +1,15 @@
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase-config";
+import FirestoreApi from "../api/firestoreApi";
 
 const useCollection = (name) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const get = async () => {
-      const newData = [];
-      const querySnapshot = await getDocs(collection(db, name));
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        newData.push({ ...data, id: doc.id });
-      });
-
-      setData(newData);
+      const data = await FirestoreApi.getCollection(name);
+      setData(data);
     };
     get();
   }, []);
