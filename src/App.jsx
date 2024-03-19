@@ -26,6 +26,9 @@ import ChatDetails from "./pages/chat_details";
 import LogIn from "./pages/login";
 import Tabs from "./pages/tabs";
 import UserDetails from "./pages/user_details";
+import SentFriendRequests from "./pages/sent_friend_requests";
+import ReceiveFriendRequests from "./pages/received_friend_requests";
+import Friends from "./pages/friends";
 
 setupIonicReact();
 
@@ -38,6 +41,17 @@ const App = () => (
         <Route path="/app" component={Tabs} />
         <Route path="/chat/details" component={ChatDetails} />
         <Route path="/user/details" component={UserDetails} />
+        <Route
+          exact
+          path="/sentFriendRequests"
+          component={SentFriendRequests}
+        />
+        <Route
+          exact
+          path="/receiveFriendRequests"
+          component={ReceiveFriendRequests}
+        />
+        <Route exact path="/friends" component={Friends} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

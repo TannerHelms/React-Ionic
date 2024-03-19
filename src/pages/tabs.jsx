@@ -14,6 +14,7 @@ import EditPhotos from "./edit_photos";
 import EditProfile from "./edit_profile";
 import Home from "./home";
 import Profile from "./profile";
+import SentFriendRequests from "./sent_friend_requests";
 
 function Tabs() {
   return (
@@ -29,6 +30,7 @@ function Tabs() {
         <Route exact path="/app/editProfile" component={EditProfile} />
         <Route exact path="/app/editPhotos" component={EditPhotos} />
         <Route exact path="/app/messages/details" component={ChatDetails} />
+        
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
         {/* Home Icon */}

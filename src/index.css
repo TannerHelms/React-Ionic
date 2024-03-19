@@ -368,3 +368,8 @@ input:-webkit-autofill:active {
 .color-background {
   background-color: #eef2f3;
 }
+
+.w-content {
+  width: 100%;
+  max-width: 600px;
+}

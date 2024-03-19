@@ -1,4 +1,6 @@
 import {
+  IonBackButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonPage,
@@ -6,11 +8,16 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import Spinner from "./spinner";
-const Container = ({ title, loading = false, children }) => {
+const Container = ({ title, loading = false, children, back = false }) => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          {back && (
+            <IonButtons slot="start">
+              <IonBackButton defaultHref="/app/home"></IonBackButton>
+            </IonButtons>
+          )}
           <IonTitle class="ion-text-center">{title}</IonTitle>
         </IonToolbar>
       </IonHeader>

@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc, where, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc, where, query, deleteDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../config/firebase-config";
 import { setCredentials } from "../redux/auth";
@@ -30,7 +30,7 @@ class FirestoreApi {
     // Get a collection 
     static async getCollection(name, filter, filter2) {
         if (filter && filter2) {
-            var q = query(collection(db, name), where(filter.match, filter.op, filter.value), where(filter2.match, '==', filter2.value));
+            var q = query(collection(db, name), where(filter.match, filter.op, filter.value), where(filter2.match, filter2.op, filter2.value));
         }
         else if (filter) {
             var q = query(collection(db, name), where(filter.match, filter.op, filter.value));
@@ -43,16 +43,13 @@ class FirestoreApi {
 
     // Get all the messages in a chat
     static async getMessages(chatId) {
-        const collection = await this.getCollection("chat_messages");
-        const messages = collection.filter(message => message.chat_id === chatId);
+        const messages = await this.getCollection("chat_messages", { match: "chat_id", op: "==", value: chatId });
         return messages.sort((a, b) => a.timestamp - b.timestamp);
     }
 
     // Get all the chats for a user
     static async getChats(userId) {
-        const collection1 = await this.getCollection("chats", { match: 'user_a_id', op: "==", value: userId });
-        const collection2 = await this.getCollection("chats", { match: 'user_b_id', op: "==", value: userId });
-        const chats = collection1.concat(collection2);
+        const chats = await this.getCollection("chats", { match: 'userIds', op: "array-contains", value: userId }) || [];
         return chats.sort((a, b) => b.last_message_time - a.last_message_time);
     }
 
@@ -75,6 +72,11 @@ class FirestoreApi {
     static async createChat(usera, userb) {
 
         // First need to check if there is a chat
+        let collection = await this.getCollection("chats", { match: 'userIds', op: "array-contains", value: usera });
+        let users = collection.filter(chat => chat.userIds.includes(userb));
+        if (users.length > 0) {
+            return
+        }
 
         const newUuid = usera + userb;
         const timestamp = serverTimestamp();
@@ -86,6 +88,7 @@ class FirestoreApi {
             user_b_id: userb,
             user_b: doc(db, "users", userb),
             users: [doc(db, "users", usera), doc(db, "users", userb)],
+            userIds: [usera, userb],
             last_message: "Chat Created",
             last_message_time: timestamp,
             timestamp,
@@ -100,6 +103,58 @@ class FirestoreApi {
         const user = await FirestoreApi.getUser(uid);
         dispatch(setCredentials({ user, token }));
     }
+
+    static async sendFriendRequest(user, friend) {
+        // Check if they are already friends
+        const resp = await this.getCollection("friend_requests", { match: "from", op: "==", value: user }, { match: "to", op: "==", value: friend });
+        if (resp.length > 0) {
+            return "Friend Request Already Sent"
+        }
+        const uuid = uuidv4().replace(/-/g, "");
+        const timestamp = serverTimestamp();
+        setDoc(doc(db, "friend_requests", uuid), {
+            id: uuid,
+            from: user,
+            to: friend,
+            timestamp,
+        })
+    }
+
+    static async getSentFriendRequests(userId) {
+        const requests = await this.getCollection("friend_requests", { match: "from", op: "==", value: userId });
+        return requests.sort((a, b) => b.timestamp - a.timestamp);
+    }
+
+    static async getReceivedFriendRequests(userId) {
+        const requests = await this.getCollection("friend_requests", { match: "to", op: "==", value: userId });
+        return requests.sort((a, b) => b.timestamp - a.timestamp);
+    }
+
+    static async cancelFriendRequest(id) {
+        await deleteDoc(doc(db, "friend_requests", id));
+    }
+
+    static async createFriendship(user, friend, request) {
+        await this.cancelFriendRequest(request);
+
+        const uuid = uuidv4().replace(/-/g, "");
+        const timestamp = serverTimestamp();
+        setDoc(doc(db, "friends", uuid), {
+            id: uuid,
+            userIds: [user, friend],
+            timestamp,
+        })
+    }
+
+    static async getFriends(userId) {
+        return await this.getCollection("friends", { match: "userIds", op: "array-contains", value: userId });
+
+    }
+
+    static async deleteFriendship(id) {
+        await deleteDoc(doc(db, "friends", id));
+    }
+
 }
 
 export default FirestoreApi;

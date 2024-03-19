@@ -1,6 +1,7 @@
 import React from "react";
 import HouseRule from "./house_rule";
 import { UserPhotos } from "./user_photos";
+import { FaUserFriends } from "react-icons/fa";
 
 export function Details({ user }) {
   return (
@@ -10,7 +11,14 @@ export function Details({ user }) {
         <div className="flex col g-20 p-5">
           <UserPhotos user={user} />
           {/* User Info */}
-          <h2 className="black center">{user.display_name}</h2>
+          <div className="flex row between w-100 black">
+            <h2 className="black center">{user.display_name}</h2>
+            <div className="flex flex-row gap-2 items-center">
+              <FaUserFriends size={25} />
+              {user.friendCt}
+            </div>
+          </div>
+
           <div className="flex row between w-100 black">
             <p>{user.location}</p>
             <p>{user.is_host ? "Host" : "Traveler"}</p>
