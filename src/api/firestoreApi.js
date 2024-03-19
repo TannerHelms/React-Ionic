@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, serverTimestamp, setDoc, updateDoc, where, query } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../config/firebase-config";
 import { setCredentials } from "../redux/auth";
@@ -28,8 +28,16 @@ class FirestoreApi {
     }
 
     // Get a collection 
-    static async getCollection(name) {
-        const querySnapshot = await getDocs(collection(db, name));
+    static async getCollection(name, filter, filter2) {
+        if (filter && filter2) {
+            var q = query(collection(db, name), where(filter.match, filter.op, filter.value), where(filter2.match, '==', filter2.value));
+        }
+        else if (filter) {
+            var q = query(collection(db, name), where(filter.match, filter.op, filter.value));
+        } else {
+            var q = collection(db, name);
+        }
+        const querySnapshot = await getDocs(q);
         return querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
     }
 
@@ -42,8 +50,9 @@ class FirestoreApi {
 
     // Get all the chats for a user
     static async getChats(userId) {
-        const collection = await this.getCollection("chats");
-        const chats = collection.filter(chat => chat.user_a_id === userId || chat.user_b_id === userId);
+        const collection1 = await this.getCollection("chats", { match: 'user_a_id', op: "==", value: userId });
+        const collection2 = await this.getCollection("chats", { match: 'user_b_id', op: "==", value: userId });
+        const chats = collection1.concat(collection2);
         return chats.sort((a, b) => b.last_message_time - a.last_message_time);
     }
 
@@ -63,7 +72,10 @@ class FirestoreApi {
     }
 
     // Create a chat between 2 users
-    static createChat(usera, userb) {
+    static async createChat(usera, userb) {
+
+        // First need to check if there is a chat
+
         const newUuid = usera + userb;
         const timestamp = serverTimestamp();
 
