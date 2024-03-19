@@ -1,15 +1,7 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import Container from "../components/container";
 import UserTile from "../components/user_tile";
 import useDistanceBetween from "../hooks/useDistanceBetween";
 import useInit from "../hooks/useInit";
-import Spinner from "../components/spinner";
-import Container from "../components/container";
 function Home() {
   const { user, dispatch } = useInit(true);
   const { userDistances } = useDistanceBetween(user);

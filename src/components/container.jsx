@@ -6,7 +6,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import Spinner from "./spinner";
-const Container = ({ title, loading = flase, children }) => {
+const Container = ({ title, loading = false, children }) => {
   return (
     <IonPage>
       <IonHeader>
